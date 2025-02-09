@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sathvik Putta</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="mediaqueries.css">
+    <link rel="icon" href="./assets/PuttaSathvikfavicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700&family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-container">
+        <div class="blob"></div>
+        <div class="blob"></div>
+        <div class="blob"></div>
+        <div class="blob"></div>
+        <nav id="desnav">
+            <div class="logo">Sathvik Putta</div>
+            <div>
+                <ul class="nlinks">
+                    <li><a href="#about">About me</a></li>
+                    <li><a href="#featured">Featured</a></li>
+                    <li><a href="#workexperience">Work Experience</a></li>
+                    <li><a href="#education">Education</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact1">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+        <nav id="nav2">
+            <div class="logo">Sathvik Putta</div>
+            <div class="navme">
+                <div class="navicon" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="menulink">
+                    <ul>
+                        <li><a href="#about" onclick="toggleMenu()">About me</a></li>
+                        <li><a href="#featured" onclick="toggleMenu()">Featured</a></li>
+                        <li><a href="#workexperience" onclick="toggleMenu()">Work Experience</a></li>
+                        <li><a href="#education" onclick="toggleMenu()">Education</a></li>
+                        <li><a href="#skills" onclick="toggleMenu()">Skills</a></li>
+                        <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
+                        <li><a href="#contact1" onclick="toggleMenu()">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <nav id="nav3">
+            <div class="nav-icons">
+                <a href="#about"><img src="./assets/aboutmelogo-removebg-preview.png" alt="Icon 1"></a>
+                <a href="#featured"><img src="./assets/featuredlogo-removebg-preview.png" alt="Icon 2"></a>
+                <a href="#workexperience"><img src="./assets/worklogo-removebg-preview.png" alt="Icon 3"></a>
+                <a href="#education"><img src="./assets/edulogo-removebg-preview.png" alt="Icon 4"></a>
+                <a href="#skills"><img src="./assets/skillslogo-removebg-preview.png" alt="Icon 5"></a>
+                <a href="#projects"><img src="./assets/projectslogo-removebg-preview.png" alt="Icon 6"></a>
+                <a href="#contact1"><img src="./assets/contactlogo-removebg-preview.png" alt="Icon 7"></a>
+            </div>
+        </nav>
+        <div class="section-container">
+            <section id="profile" class="hidden">
+                <div class="sec_pro_container">
+                    <img src="./assets/puttasathvikprofilepic.jpeg" alt="profile pic" oncontextmenu="return false;">
+                </div>
+                <div class="sec_txt">
+                    <p class="sec_txt_p1">Hello, I'm</p><br>
+                    <h1 class="title">Sathvik Putta</h1>
+                    <p class="sec_txt_p2 typing-animation">Full Stack Developer</p>
+                    <br>
+                    <div class="btncon">
+                        <button class="btn btncolor-2" onclick="window.open('./assets/resume.pdf')">Resume</button>
+                        <button class="btn btncolor-1" onclick="location.href='./#contact1'">Contact Info</button>
+                    </div>
+                    <div id="socialcon">
+                        <img src="./assets/linkedin.png" alt="linkedin" class="icon" onclick="location.href='https://www.linkedin.com/in/sathvik-putta-7612611a4?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app'"/>
+                        <img src="./assets/github.png" alt="github" class="icon" onclick="location.href='https://github.com/PuttaSathvik16'"/>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+        <div class="section-container">
+            <section id="about" class="hidden">
+                <video autoplay muted loop playsinline class="video-bg" controlsList="nodownload" oncontextmenu="return false;">
+                    <source src="./assets/about me background.mp4" type="video/mp4">
+                </video>
+                <p class="sec_txt_p1"  id="subhea">Get To Know More</p>
+                <h1 class="title" id="hed5">About Me</h1>
+                <div class="about-section-content">
+                    <div class="secprocon2">
+                        <img src="./assets/sathivkputtaphoto.jpg" alt="profile" class="about-pic" oncontextmenu="return false;"/>
+                    </div>
+                    <div class="about-details-container">
+                        <div class="about-containers">
+                            <div class="details-containers">
+                                <p>
+                                    I am a dedicated Web Developer and Data Analyst with hands-on experience in data engineering, cloud computing, and data visualization. My expertise stems from roles at TRIX.edu, Hyderabad, where I worked as a Data Engineering Intern, and at ICT Academy, Chennai, where I contributed as a Microsoft Azure and Power BI Analyst.
+                                </p><br><br>
+                                <p>
+                                    Skilled in designing ETL pipelines, database migration, and building data-driven solutions, I have experience working with Azure, Databricks, and Power BI. Additionally, I am proficient in Python, JavaScript, and cloud technologies, with a strong focus on delivering scalable solutions and insightful analytics.
+                                </p><br><br>
+                                <p>
+                                    Currently pursuing a Master’s in Data Science and Engineering in the USA, I am passionate about leveraging my technical expertise to drive innovation, optimize processes, and create impactful solutions in software engineering and data analysis.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="section-container">
+            <section id="featured" class="container">
+                <video autoplay muted loop playsinline class="video-bg" controlsList="nodownload" oncontextmenu="return false;">
+                    <source src="./assets/featuredvideo.mp4" type="video/mp4">
+                </video>
+                <h2 class="featured-heading" style="color: white;">Featured</h2>
+                <div class="box-wrapper">
+                    <div class="box-container" data-active="false">
+                        <a href="https://ieeexplore.ieee.org/author/37089657394" target="_blank">
+                            <div class="animated-box">
+                                <img src="./assets/ieeexplorelogo.png" alt="IEEE Xplore">
+                            </div>
+                        </a>
+                        <p class="box-text" style="color: white;"">IEEE Xplore</p>
+                    </div>
+                    <div class="box-container" data-active="false">
+                        <a href="https://github.com/PuttaSathvik16" target="_blank">
+                            <div class="animated-box">
+                                <img src="./assets/githublogor.png" alt="GitHub">
+                            </div>
+                        </a>
+                        <p class="box-text" style="color: white;">GitHub</p>
+                    </div>
+                    <div class="box-container" data-active="false">
+                        <a href="https://learn.microsoft.com/en-us/users/sathvikputta-6049/" target="_blank">
+                            <div class="animated-box">
+                                <img src="./assets/microsoftlearnlogo.png" alt="Google Scholar">
+                            </div>
+                        </a>
+                        <p class="box-text"  style="color: white;">Microsoft Learn</p>
+                    </div>
+                    <div class="box-container" data-active="false">
+                        <a href="https://leetcode.com/u/8AAsl8XuST/" target="_blank">
+                            <div class="animated-box">
+                                <img src="./assets/leetcode1logo.png" alt="ResearchGate">
+                            </div>
+                        </a>
+                        <p class="box-text"  style="color: white;">LeetCode</p>
+                    </div>
+                    <div class="box-container" data-active="false"> <!-- New LinkedIn box -->
+                        <a href="https://www.linkedin.com/in/sathvik-putta-7612611a4?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank">
+                            <div class="animated-box">
+                                <img src="./assets/linkedinlogo1.png" alt="LinkedIn">
+                            </div>
+                        </a>
+                        <p class="box-text"  style="color: white;">LinkedIn</p>
+                    </div>
+                    <div class="box-container" data-active="false"> <!-- New LinkedIn box -->
+                        <a href="https://scholar.google.com/scholar?q=author:%22P.+Sathvik%22" target="_blank">
+                            <div class="animated-box">
+                                <img src="./assets/googlescholaricon.png" alt="Googlescholar">
+                            </div>
+                        </a>
+                        <p class="box-text"  style="color: white;">Google Scholar</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+<div class="section-container">
+            <section id="workexperience" class="experience-container" >
+                <video autoplay muted loop playsinline class="video-bg" controlsList="nodownload" oncontextmenu="return false;">
+                    <source src="./assets/worexpe.mp4" type="video/mp4">
+                </video>
+                <p class="sec_txt_p1" style="color: white; font-weight: bold;" id="subhea">Explore My</p><br>
+                <h1 class="title experience-heading" style="color: white;" id="hed5">Work Experience</h1>
+                <div class="experience-box-wrapper">
+                    <div class="experience-box">
+                        <div class="content">
+                            <h3 class="title">Web Developer Intern</h3>
+                            <h4 class="title"><center>TRIX.edu</center></h4><br>
+                            <h5><center>Mar 2020 – Dec 2020</center></h5>
+                            <h5><center>Hyderabad, India</center></h5><br>
+                            <p>
+                                I developed responsive web applications, collaborating with academic teams to enhance the university's platform. I optimized UI, integrated new features, and ensured seamless database management. My work improved performance, security, and user experience while minimizing downtime.
+                            </p><br>
+                            <div class="buttons">
+                                <a href="./assets/191911244_Putta Sathvik.pdf" target="_blank" class="btn2">Report</a>
+                                <button class="btn2" onclick="showCertificate('./assets/InternshipCertificate.jpg')">Certificate</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="experience-box">
+                        <div class="content">
+                            <h3 class="title">Microsoft Azure and PowerBI Analyst</h3>
+                            <h4 class="title"><center>ICT Academy</center></h4><br>
+                            <h5><center>Oct 2022 – Feb 2023</center></h5>
+                            <h5><center>Chennai, India</center></h5><br>
+                            <p>Experienced in Azure, Databricks, and ETL development, I specialize in data management and migration. Proficient in Power BI and SQL, I optimize pipelines and transform data. My expertise ensures scalability, security, and efficient cloud solutions.</p><br>
+                            <div class="buttons">
+                                <a href="https://verify.ictacademy.in/Certificate.aspx?v=bjasgd87qte9uiwhekjhushhehsjdojsofy8fjqoeuiwhdfjbskdjgfusdjcnksxcnuiuw/sdjkhciusdgfu&c=G-2022-G2604-0032" target="_self" class="btn2">Certificate</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="experience-box">
+                        <div class="content">
+                            <h3 class="title">Data Engineering Intern</h3>
+                            <h4 class="title"><center>TRIX.edu</center></h4><br>
+                            <h5><center>Mar 2021 – Dec 2021</center></h5>
+                            <h5><center>Hyderabad, India</center></h5><br>
+                            <p>
+                                Optimized ETL pipelines using Azure Data Factory and Databricks for seamless data integration. Led MySQL to Azure SQL migration, improving performance and scalability. Processed diverse data formats and built Power BI dashboards for data-driven insights. Focused on performance tuning, secure data management, and compliance.
+                            </p><br>
+                            <div class="buttons">
+                                <a href="./assets/191911244_Putta Sathvik.pdf" target="_blank" class="btn2">Report</a>
+                                <button class="btn2" onclick="showCertificate('./assets/InternshipCertificate.jpg')">Certificate</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="section-container">
+            <section id="education" class="hidden">
+                <video autoplay muted loop playsinline class="video-bg" controlsList="nodownload" oncontextmenu="return false;">
+                    <source src="./assets/educationbackgorund.mp4" type="video/mp4">
+                </video>
+                <div class="content">
+                    <div class="left fade-in" style="color: white;">Education</div>
+                    <div class="right fade-in">
+                        <div class="clg-details">
+                            <div class="edu-entry">
+                                <div class="icon1">
+                                    <img src="./assets/sselogo.jpg" alt="Bachelor Image" class="icon-img">
+                                </div>
+                                <div class="cont">
+                                    <h1 class="title1">Bachelor of Technology (Aug 2019 - May 2023)</h1>
+                                    <center><p>Bachelor of Technology in Computer Science and Engineering</p>
+                                    <p><strong>Saveetha School Of Engineering, India (Grade: 9.7 on scale of 10)</strong></p></center>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="edu-entry">
+                                <div class="icon1">
+                                    <img src="./assets/shulogo.jpeg" alt="Master Image" class="icon-img">
+                                </div>
+                                <div class="cont">
+                                    <h1 class="title1">Master of Science (Jan 2024 - Present)</h1>
+                                    <center><p>Master of Science in Data Science and Engineering</p>
+                                    <p><strong>Sacred Heart University, Connecticut, USA (Grade: 3.92 on scale of 4)</strong></p></center><br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="section-container">
+            <section id="skills" class="hidden">
+                <video autoplay muted loop playsinline class="video-bg" controlsList="nodownload" oncontextmenu="return false;">
+                    <source src="./assets/skillsbackground.mp4" type="video/mp4">
+                </video>
+                <p class="sec_txt_p1" id="subhea">Explore My</p>
+                <h1 class="title fade-in" id="hed5">Skills</h1>
+                <div class="container1">
+                    <!-- Existing sections -->
+                    <div class="section1 fade-in1">
+                        <h3 class="tte">Languages</h3>
+                        <div class="grid grid-2x2">
+                            <img class="box1" src="./assets/clogo.png" alt="img">
+                            <img class="box1" src="./assets/rlogo.png" alt="img">
+                            <img class="box1" src="./assets/pythonlogo.png" alt="img">
+                            <img class="box1" src="./assets/javalogo.png" alt="img">
+                        </div>
+                    </div>
+                    <div class="section1 fade-in1">
+                        <h3 class="tte" >Machine Learning</h3>
+                        <div class="grid grid-3x3">
+                            <img class="box1" src="./assets/numpylogo.png" alt="img">
+                            <img class="box1" src="./assets/jupyter pytest.png" alt="img">
+                            <img class="box1" src="./assets/nlplogo.png" alt="img">
+                            <img class="box1" src="./assets/Pandaslogo.png" alt="img">
+                            <img class="box1" src="./assets/Regressionlogo.png" alt="img">
+                            <img class="box1" src="./assets/classificationlogo.png" alt="img">
+                            <img class="box1" src="./assets/scikitlearnlogo.png" alt="img">
+                        </div>
+                    </div>
+                    <div class="section1 fade-in1">
+                        <h3 class="tte">Deployment & Production</h3>
+                        <div class="grid grid-3x1">
+                            <img class="box1" src="./assets/azurelogo.png" alt="img">
+                            <img class="box1" src="./assets/fastapiicon.png" alt="img">
+                            <img class="box1" src="./assets/flasklogo.png" alt="img">
+                        </div>
+                    </div>
+                    <div class="section1 fade-in1">
+                        <h3 class="tte">Database & Data Movements</h3>
+                        <div class="grid grid-2x1">
+                            <img class="box1" src="./assets/mongologo.png" alt="img">
+                            <img class="box1" src="./assets/sqllogo.png" alt="img">
+                            <img class="box1" src="./assets/saplogo.png" alt="img">
+                            <img class="box1" src="./assets/sqsllogo.png" alt="img">
+                        </div>
+                    </div>
+                    <div class="section1 fade-in1">
+                        <h3 class="tte">Web Technologies</h3>
+                        <div class="grid grid-2x2">
+                            <img class="box1" src="./assets/htmllogo.jpg" alt="img">
+                            <img class="box1" src="./assets/cssicon.png" alt="img">
+                            <img class="box1" src="./assets/jslogo.png" alt="img">
+                            <img class="box1" src="./assets/reactjsicon.png" alt="img">
+                        </div>
+                    </div>
+                    <!-- New combined row -->
+                    <div class="combined-row fade-in1">
+                        <div class="section1">
+                            <h3 class="tte">Visualization & Analytics</h3>
+                            <div class="grid grid-3x1">
+                                <img class="box1" src="./assets/tablogo.png" alt="img">
+                                <img class="box1" src="./assets/matplotlibicon.png" alt="img">
+                                <img class="box1" src="./assets/powerbiicon.png" alt="img">
+                                <img class="box1" src="./assets/dataarchilogo.png" alt="img">
+                            </div>
+                        </div>
+                        <div class="section1">
+                            <h3 class="tte">Platforms</h3>
+                            <div class="grid grid-2x1">
+                                <img class="box1" src="./assets/linuxlogo.png" alt="img">
+                                <img class="box1" src="./assets/ubuntulogo.png" alt="img">
+                                <img class="box1" src="./assets/windowslogo.png" alt="img">
+                            </div>
+                        </div>
+                        <div class="section1">
+                            <h3 class="tte">Cloud & Big Data</h3>
+                            <div class="grid grid-3x1">
+                                <img class="box1" src="./assets/azuredevlogo.png" alt="img">
+                                <img class="box1" src="./assets/databrickslogo.png" alt="img">
+                                <img class="box1" src="./assets/microsoftazurelogo.png" alt="img">
+                            </div>
+                        </div>
+                        <div class="section1">
+                            <h3 class="tte">ETL & Data Engineering</h3>
+                            <div class="grid grid-3x1">
+                                <img class="box1" src="./assets/buildetllogo.png" alt="img">
+                                <img class="box1" src="./assets/datamodlogo.png" alt="img">
+                                <img class="box1" src="./assets/datatranslogo.png" alt="img">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="section-container">
+            <div class="section-container">
+                <section id="projects" class="hidden">
+                    <video autoplay muted loop playsinline class="video-bg" controlsList="nodownload" oncontextmenu="return false;">
+                        <source src="./assets/probackgorund.mp4" type="video/mp4">
+                    </video>
+                    <p class="sec_txt_p1 animate-on-scroll"  style="color: white;" id="subhea">Browse My</p>
+                    <h1 class="title fade-in animate-on-scroll"  style="color: white;" id="hed5">Projects</h1><br><br><br>
+                    <div class="container2">
+                        <div class="row">
+                            <div class="project animate-on-scroll">
+                                <div class="frame">
+                                    <a href="https://github.com/PuttaSathvik16/TEXT-BASED-ANALYSIS/pull/24" target="_self">
+                                        <img src="./assets/project1.png" alt="Project 1">
+                                        <video autoplay muted loop playsinline>
+                                            <source src="./assets/project1.mp4"  type="video/mp4">
+                                        </video>
+                                    </a>                                    
+                                </div>
+                                <div class="title1">Exploring Sentiment Towards a 10-Year Minimum Occupation Period in Prime Location Housing (PLH) Model</div>
+                                <div class="description">I conducted a text-based sentiment analysis on public reactions to Singapore’s Prime Location Housing (PLH) Model, introduced to support middle-income families. Using BeautifulSoup and Scrapy, I extracted discussions from online platforms, then cleaned and processed the data by filtering spam, standardizing text, and handling slang/emojis.
+
+                                    With TextBlob and NLP techniques (tokenization, POS tagging, stemming, and stop-word removal), I analyzed sentiment polarity and subjectivity. Insights revealed a largely positive public reception, influenced by extensive engagement, with a mix of neutral opinions providing balance.
+                                    
+                                    This project sharpened my skills in Python, Web Scraping, NLP, Data Cleaning, and Sentiment Analysis, offering real-world insights into policy reception.</div>
+                            </div>
+                            <div class="project animate-on-scroll">
+                                <div class="frame">
+                                    <a href="https://github.com/PuttaSathvik16/sathvikdatabase/pull/13" target="_self">
+                                        <img src="./assets/project2.png" alt="Project 2">
+                                        <video autoplay muted loop playsinline>
+                                            <source src="./assets/project2.mp4"  type="video/mp4">
+                                        </video>
+                                    </a>
+                                </div>
+                                <div class="title1">Adaptable Company Management System with MongoDB</div>
+                                <div class="description">As part of my Master’s in Data Science at Sacred Heart University, USA, I developed an Adaptable Company Management System to streamline employee, department, and project management.
+
+                                    Key features include secure authentication, dynamic employee management (CRUD operations), and automated leave tracking. The system integrates Flask and pymongo to interact with a MongoDB Atlas database, handling data retrieval, updates, and deletion through defined API routes. HTML templates are seamlessly rendered using Flask, ensuring a user-friendly interface.
+                                    
+                                    This project enhanced my skills in MongoDB, Flask, RESTful API design, and web development, strengthening my expertise in database-driven applications.</div>
+                            </div>
+                            <div class="project animate-on-scroll">
+                                <div class="frame">
+                                    <a href="https://www.e3s-conferences.org/articles/e3sconf/abs/2023/36/e3sconf_iconnect2023_04021/e3sconf_iconnect2023_04021.html" target="_self">
+                                        <img src="./assets/project3.png" alt="Project 3">
+                                        <video autoplay muted loop playsinline>
+                                            <source src="./assets/project3.mp4"  type="video/mp4">
+                                        </video>
+                                    </a>
+                                </div>
+                                <div class="title1">Accurate prediction of student performance in online education during COVID using Machine Learning and Deep Learning Algorithms</div>
+                                <div class="description">For my Bachelor’s final year project, I developed a machine learning and deep learning-based predictive analytics system to forecast student performance in online education during COVID-19. By integrating data from diverse platforms, the system provides actionable insights to help educators implement personalized interventions, enhancing adaptability in online learning.
+
+                                    Skills: Machine Learning, Deep Learning, Python, MySQL, Data Analytics, Strategic Planning.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project animate-on-scroll">
+                        <div class="frame">
+                            <a href="project3.html">
+                                <img src="./assets/project3.png" alt="Project 4">
+                                <video autoplay muted loop playsinline>
+                                    <source src="./assets/project3.mp4"  type="video/mp4">
+                                </video>
+                            </a>
+                        </div>
+                        <div class="title1">Enterprise Data Migration and Analytics Pipeline | ICT Academy </div>
+                        <div class="description">
+                            Developed a scalable data migration and analytics pipeline using Azure, Databricks, and Power BI. Migrated legacy databases to Azure SQL, optimized ETL pipelines for real-time processing, and created interactive dashboards for actionable insights. Leveraged Azure Data Factory for integration, Databricks with PySpark for transformation, and Power BI for visualization. Ensured seamless migration with zero data loss, improved operational efficiency, and built a scalable architecture aligned with data governance standards.
+                        </div>
+                    </div>
+                </div>
+            </div>
+                </section>
+            </div>
+        </div>
+<!--Contact Info-->
+<!-- Contact Footer Section -->
+<footer class="contact-footer" id="contact1">
+    <!-- Video Background -->
+    <video autoplay muted loop playsinline class="video-bg1" controlsList="nodownload" oncontextmenu="return false;">
+        <source src="./assets/footervideo.mp4" type="video/mp4">
+    </video>
+
+    <!-- Footer Content -->
+    <div class="footer-container">
+        <!-- Contact Info Box -->
+        <div class="contact-box contact-info">
+            <h2 id="head2">Let's start a new project together and I'm open to exciting job opportunities and collaborations!</h2>
+            <div class="contact-buttons">
+                <button onclick="window.location.href='mailto:puttasathvik16@gmail.com'" class="contact-btn">
+                    <i class="icon">&#9993;</i> puttasathvik16@gmail.com
+                </button>
+                <button onclick="window.location.href='tel:+14758378069'" class="contact-btn">
+                    <i class="icon">&#9742;</i> +1 (475) 837 8069
+                </button>
+            </div>
+        </div>
+    
+        <!-- FAQ Section -->
+    <!-- FAQ Section -->
+<div class="faq-section">
+    <div class="faq-header">
+        <h2 class="faq-title">FAQ</h2>
+        <div class="faq-controls">
+            <button id="faq-prev" class="faq-arrow">←</button>
+            <button id="faq-next" class="faq-arrow">→</button>
+        </div>
+    </div>
+    <div class="faq-box">
+        <div id="faq-content">
+            <div id="faq-content">
+                <div id="faq-question" class="faq-question"></div>
+            </div>
+        </div>        
+    </div>
+</div>
+
+    
+        <!-- Contact Form Box -->
+        <div class="contact-box contact-form">
+            <h2 id="head1">Contact Me</h2>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="text" id="phone" placeholder="Enter your phone number" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" placeholder="Enter subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Leave a message</label>
+                    <textarea id="message" placeholder="Type your message" required></textarea>
+                </div>
+                <button type="submit" class="send-btn">Send a message</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Modal for displaying certificate image -->
+    <div id="certificateModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="certificateImage">
+        <div id="caption"></div>
+    </div>
+    <!---arrows-->
+    <div id="scroll-arrows">
+        <button id="scroll-up" class="scroll-arrow"><img src="./assets/arrow2.png" alt="up arrow"></button>
+        <button id="scroll-down" class="scroll-arrow"><img src="./assets/arrow.png" alt="down arrow"></button>
+    </div>    
+    <script src="index.js"></script>
+</body>
+</html>

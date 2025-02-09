@@ -1,0 +1,1028 @@
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+@media screen and (max-width: 1200px) {
+    #desnav {
+        display: none;
+    }
+    #nav2 {
+        display: flex;
+    }
+
+    .section-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .about-section-content {
+        flex-direction: column; /* Stack the image and content vertically */
+        align-items: center;
+        text-align: center;
+    }
+
+    .secprocon2, .about-details-container {
+        width: 100%;
+        text-align: center;
+    }
+
+    .about-details-container {
+        height: auto; /* Allow the height to adjust based on content */
+    }
+
+    .details-containers {
+        padding: 1rem;
+        font-size: 1.25rem; /* Adjust the font size for better readability */
+    }
+
+    /* Adjust the layout of the featured boxes */
+    .box-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px; /* Adjust gap as needed */
+    }
+
+    .box-container {
+        width: calc(50% - 20px); /* Two boxes per row */
+        margin-bottom: 20px; /* Add margin between rows */
+    }
+
+    /* Adjust the layout of the experience boxes */
+    .experience-box-wrapper {
+        flex-direction: column; /* Stack boxes */
+        align-items: center;
+        gap: 30px; /* Space between boxes */
+    }
+
+    .experience-box {
+        width: 90%; /* Slightly smaller than full width */
+        max-width: 600px; /* Prevents excessive stretching */
+        margin: 0 auto; /* Centering */
+    }
+    .left{
+        text-align: center;
+        padding-left: 20px;
+        flex-direction: row;
+    }
+    #education {
+        width: 100%; /* Reduce width */
+        max-width: 5000px; /* Prevent it from being too wide */
+        padding: 30px;
+        display: flex;
+        flex-direction: column; 
+        max-height: 60px;/* Adjust padding */
+    }
+    .cont{
+        text-align: center;
+        padding-right: 40px;
+    }
+    /* Reduce Education Box Size */
+    /* Reduce Icon Size */
+    .icon1 {
+        width: 60px;
+        height: 60px;
+        align-items: center;
+    }
+
+    /* Reduce Text Size */
+    .title1 {
+        font-size: 1.4rem; /* Reduce heading size */
+    }
+
+    .edu-entry p {
+        font-size: 1rem; /* Adjust font size */
+        text-align: center; /* Center text */
+    }
+    .container1 {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .section1 {
+        flex: 1 1 calc(50% - 40px); /* Adjust width to fit two in a row with spacing */
+        margin: 20px;
+    }
+
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 15px;
+    }
+
+    .box1 {
+        width: 100px;
+        height: 100px;
+    }
+
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
+    .row {
+            flex-wrap: wrap; /* Allow wrapping for better layout */
+            justify-content: center; /* Center projects */
+        }
+    
+        .project {
+            width: calc(50% - 20px); /* Two projects per row */
+            margin-bottom: 20px; /* Spacing between rows */
+        }
+        #aboutme .videobg{
+            max-height: 5000px;
+        }
+        section:not(#profile) .video-bg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures video scales proportionally */
+        }
+    
+        #profile .video-bg {
+            object-fit: contain; /* Profile section remains unchanged */
+        }
+    }
+@media screen and (max-width: 768px) { /* iPhone Screen Sizes */
+    #desnav {
+        display: none;
+    }
+    #nav2 {
+        display: flex;
+    }
+
+    .section-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* About Section */
+    .about-section-content {
+        flex-direction: column; /* Stack the image and content vertically */
+        align-items: center;
+        text-align: center;
+    }
+
+    .secprocon2, .about-details-container {
+        width: 100%;
+        text-align: center;
+    }
+
+    .about-details-container {
+        height: auto; /* Allow the height to adjust based on content */
+    }
+
+    .details-containers {
+        padding: 1rem;
+        font-size: 1rem; /* Slightly smaller font for smaller screens */
+    }
+
+    /* Featured Section */
+    .box-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px; /* Reduced gap for smaller screens */
+    }
+
+    .box-container {
+        width: calc(100% - 20px); /* Full-width on smaller screens */
+        margin-bottom: 15px; /* Reduce margin for better spacing */
+    }
+
+    /* Experience Section */
+    .experience-box-wrapper {
+        flex-direction: column; /* Stack vertically */
+        align-items: center;
+        gap: 20px; /* Adjust spacing for smaller screens */
+    }
+
+    .experience-box {
+        width: 95%; /* Slightly wider for smaller screens */
+        max-width: 500px; /* Prevents excessive stretching */
+        margin: 10px auto; /* Center and add margin */
+        padding: 15px; /* Reduce padding for better fit */
+    }
+
+    /* Education Section */
+    .left {
+        text-align: center;
+        padding-left: 0px; /* Reset padding for small screens */
+        flex-direction: column; /* Ensure stacking */
+    }
+
+    #education {
+        width: 1000px; /* Make it smaller */ /* Limit max width */
+        padding: 20px;
+        height: 100vh; /* Reduce padding */
+    }
+    #education {
+        position: relative;
+        width: 100%;
+        height: 100vh; /* Full viewport height */
+        overflow: hidden;
+    }
+
+    /* Stack Education Entries */
+    .edu-entry {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        padding: 10px;
+    }
+
+    /* Adjust Icon Size */
+    .icon1 {
+        width: 50px;
+        height: 50px;
+    }
+
+    /* Reduce Font Size */
+    .title1 {
+        font-size: 1.2rem; /* Smaller title */
+    }
+
+    .edu-entry p {
+        font-size: 0.9rem; /* Smaller text */
+        text-align: center;
+    }
+
+    /* Buttons & Text Adjustments */
+    .btncon {
+        flex-direction: column; /* Stack buttons */
+        align-items: center;
+    }
+
+    .btn {
+        width: 100%; /* Full width for easy clicking */
+        font-size: 1rem;
+        padding: 10px;
+    }
+    .container1 {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .section1 {
+        flex: 1 1 calc(100% - 40px); /* Full width with spacing */
+        margin: 20px;
+    }
+
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 15px;
+    }
+
+    .box1 {
+        width: 100px;
+        height: 100px;
+    }
+
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
+    .row {
+        flex-wrap: wrap; /* Allow wrapping for small screens */
+        justify-content: center;
+    }
+
+    .project {
+        width: 90%; /* Make projects full-width */
+        max-width: 320px;
+        height: 400px;
+    }
+
+    .frame {
+        width: 100%; /* Ensure video/images fit */
+    }
+    section:not(#profile) .video-bg {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Adjust video to cover sections */
+    }
+
+    #profile .video-bg {
+        object-fit: contain; /* Maintain original appearance in profile section */
+    }
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .contact-box {
+        width: 100%;
+        max-width: 500px;
+    }
+}
+/* General adjustments for all screen sizes */
+@media screen and (max-width: 1200px) {
+    #desnav {
+        display: none;
+    }
+    #nav2 {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .section-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .navicon{
+        left:100px;
+    }
+
+    /* Profile Section */
+    #profile {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        height: auto;
+        padding: 50px 0;
+    }
+
+    .sec_pro_container {
+        width: 300px;
+        height: 300px;
+    }
+
+    .sec_pro_container img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .sec_txt {
+        text-align: center;
+        margin-top: 20px; /* Add margin to separate text from image */
+    }
+
+    /* About Section */
+    .about-section-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .secprocon2, .about-details-container {
+        width: 100%;
+        text-align: center;
+    }
+
+    .about-details-container {
+        height: auto;
+        padding: 20px;
+    }
+
+    /* Featured Section */
+    .box-wrapper {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .box-container {
+        width: calc(50% - 20px); /* Two boxes per row */
+    }
+
+    /* Work Experience */
+    .experience-box-wrapper {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .experience-box {
+        width: 80%;
+        max-width: 600px;
+
+    }
+
+    /* Education Section */
+    .edu-entry {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .clg-details{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap:5px;
+    }
+
+    .icon1 {
+        width: 60px;
+        height: 60px;
+        
+    }
+
+    .title1 {
+        font-size: 1.6rem;
+    }
+
+    /* Skills Section */
+    .container1 {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .section1 {
+        flex: 1 1 calc(30% - 40px);
+        margin: 10px;
+    }
+
+    /* Projects Section */
+    .row {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .project {
+        width: calc(50% - 20px);
+        margin-bottom: 20px;
+    }
+
+    /* Contact Section */
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+    }
+
+    .contact-box {
+        width: 90%;
+    }
+}
+
+/* Adjustments for Tablets & Large Phones (max-width: 768px) */
+@media screen and (max-width: 768px) {
+    /* Profile Section */
+    #profile {
+        padding: 40px 0;
+    }
+
+    .sec_pro_container {
+        width: 250px;
+        height: 250px;
+    }
+
+    .sec_txt h1 {
+        font-size: 2.5rem;
+    }
+
+    .sec_txt_p2 {
+        font-size: 1.5rem;
+    }
+
+    /* About Me Section */
+    .about-details-container {
+        font-size: 1.1rem;
+    }
+
+    /* Featured Section */
+    .box-container {
+        width: calc(100% - 20px);
+    }
+
+    /* Work Experience */
+    .experience-box {
+        width: 80%;
+        max-width: 300px;
+        font-size: 10px;
+    }
+
+    /* Education Section */
+    .title1 {
+        font-size: 1.4rem;
+    }
+.clg-details{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 5px;
+}
+.icon1{
+    align-items: center;
+    margin-right: 25px;
+    width: 80px;
+    height:80px;
+}
+    /* Skills Section */
+    .container1 {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px; /* Add spacing between sections */
+    }
+
+    .section1 {
+        width: 100%; /* Full width for each section */
+        text-align: center;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* Two items per row */
+        gap: 15px; /* Reduce excessive spacing */
+        justify-items: center; 
+        /* Center the items */
+    }
+
+    .box1 {
+        width: 80px; /* Reduce box size */
+        height: 80px;
+    }
+
+    .box1 img {
+        width: 50px; /* Scale down images */
+        height: auto;
+    }
+
+    /* Adjustments for better spacing */
+    .combined-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        width: 100%;
+    }
+
+    .section1 h2 {
+        font-size: 1.4rem; /* Adjust heading size */
+        margin-bottom: 10px;
+    }
+    /* Projects Section */
+    .project {
+        width: 40% !important;
+        max-width: 240px;
+        height: 300px;
+    }
+    /* Contact Section */
+    .contact-box {
+        width: 100%;
+    }
+}
+
+/* Adjustments for Small Phones (max-width: 480px) */
+@media screen and (max-width: 480px) {
+    /* Profile Section */
+    .sec_pro_container {
+        width: 200px;
+        height: 200px;
+    }
+
+    .sec_txt h1 {
+        font-size: 2rem;
+    }
+
+    .sec_txt_p2 {
+        font-size: 1.2rem;
+    }
+
+    /* About Me Section */
+    .about-details-container {
+        font-size: 1rem;
+    }
+
+    /* Featured Section */
+    .box-wrapper {
+        gap: 10px;
+    }
+
+    /* Work Experience */
+    .experience-box {
+        width: 100%;
+        padding: 15px;
+    }
+
+    /* Education Section */
+    .title1 {
+        font-size: 1.2rem;
+    }
+
+    /* Skills Section */
+    .container1 {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px; /* Reduce spacing for better fit */
+        margin-top: 10px;
+    }
+
+    .section1 {
+        width: 100%; /* Full width */
+        text-align: center;
+        margin-bottom: 5px;
+    }
+
+    .section1 h2 {
+        font-size: 0.9rem; /* Smaller heading size */
+        margin-bottom: 5px;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* Three items per row */
+        gap: 5px; /* Reduce spacing */
+        justify-items: center;
+    }
+
+    .box1 {
+        width: 45px; /* Smaller skill boxes */
+        height: 45px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 5px; /* Slightly rounded corners */
+    }
+
+    .box1 img {
+        width: 30px; /* Reduce icon size */
+        height: auto;
+    }
+
+    /* Adjustments for combined rows */
+    .combined-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px;
+        width: 100%;
+    }
+
+    /* Projects Section */
+    .project {
+        width: 100%;
+    }
+
+    /* Contact Section */
+    .contact-box {
+        padding: 20px;
+    }
+}
+
+/* iPhone 13 Specific Adjustments */
+@media only screen 
+  and (max-width: 390px) 
+  and (max-height: 844px) {
+    /* Profile Section */
+    #profile {
+        padding: 30px 0;
+        height: 800px !important;
+        padding-bottom: 200px;
+    }
+
+    .sec_pro_container {
+        width: 300px;
+        height: 300px;
+        padding-top: 150px;
+    }
+
+    .sec_txt h1 {
+        font-size: 1.8rem;
+    }
+
+    .menulink li a {
+      font-size: 1rem !important ;
+    }
+    .menulink{
+        width:110px !important;
+        margin-top: -10px !important;
+        height: 250px !;
+    }
+    .logo{
+        text-align: center;
+    }
+    .navicon{
+        display: none;
+        width:30px;
+        height: 30px;
+    }
+    .sec_txt_p2 {
+        font-size: 1.1rem;
+    }
+    .sec_txt{
+        margin-top: -40px !important;
+    }
+    .btn-color2,.btn-color1{
+        font-size: 50px !important;
+    }
+    .btncon{
+        font-size: 50px !important;
+    }
+   .title{
+    font-size: 1rem;
+   }
+   .sec_txt_p1{
+    font-size: 10px !important;
+   }
+    /* About Me Section */
+    #about{
+        height: 1750px;
+    }
+    .about-details-container {
+        font-size: 0.9rem;
+        flex-wrap: wrap !important;
+    }
+    .about-pic{
+        width:180px !important;
+        height:250px !important; 
+    }
+   .details-containers{
+    font-size: 20px !important;
+   }
+    /* Featured Section */
+    #featured{
+        height: 2000px !important;
+    }
+    .box-wrapper {
+        gap: 5px;
+    }
+
+    /* Work Experience */
+    #workexperience{
+        height:1200px !important;
+    }
+    .experience-box {
+        width: 100%;
+        padding: 10px;
+    }
+
+    /* Education Section */
+    #education {
+        display: block !important;
+        width: 100% !important;
+        margin: 20px auto !important;
+        padding: 10px !important;
+        text-align: center !important;
+        height: auto !important;
+        box-sizing: border-box !important;
+        max-height: 11000px;
+    }
+
+    #education h2 {
+        font-size: 1.6rem !important;
+        margin-bottom: 15px !important;
+    }
+
+    #education p {
+        font-size: 1rem !important;
+        margin-bottom: 10px !important;
+    }
+    .title1 {
+        font-size: 1.1rem !important;
+    }
+
+    /* Skills Section */
+    #skills{
+        height: 1700px !important;
+    }
+    .box1 {
+        width: 50px;
+        height: 50px;
+    }
+    #subhea{
+        font-size: 1.5rem !important;
+    }
+    #hed5{
+        font-size: 2rem !important;
+    }
+    /* Projects Section */
+    #projects{
+        height:2000px !important
+    }
+    .project {
+        width: 90% !important;
+        height:300px;
+    }
+    .title1{
+        font-size: 15px !important;
+    }
+    .frame{
+        width: 200px;
+        height:200px;
+        align-items: center;
+        padding-right: 30px;
+    }
+    .description{
+        font-size: 8px;
+    }
+
+    /* Contact Section */
+    #contact {
+        padding: 20px !important;
+        position: relative !important;
+        top: 50px !important;
+    }
+    .contact-box {
+        width: 90% !important;
+        max-width: 280px !important;
+        padding: 15px !important;
+    }
+    .contact-box h2 {
+        font-size: 1.2rem !important;
+    }
+    .contact-box p {
+        font-size: 0.9rem !important;
+    }
+    .contact-box input, .contact-box textarea {
+        width: 300px !important;
+        font-size: 1rem !important;
+    }
+    .contact-box button {
+        font-size: 1rem !important;
+    }
+    .contact-form {
+        position: relative !important;
+        z-index: 1 !important;
+        width:300px !important;
+        align-items: center !important;
+    }
+    .contact-box.contact-form {
+        display: flex;
+        flex-direction: column;
+        width: 95% !important;
+        max-width: 480px !important;
+        padding: 15px;
+        order: 2;
+    }
+    .faq-section {
+        order: 1;
+        width: 100%;
+        max-width: 320px;
+        text-align: center;
+    }
+    .footer-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .nav-icons {
+        bottom: 5px;
+        padding: 3px 5px;
+        gap: 3px;
+        max-width: 70% !important; /* Ensures it remains centered */
+    }
+    .nav-icons img {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+/* Adjustments for 468px x 600px screens */
+@media only screen and (max-width: 468px) and (max-height: 600px) {
+    .contact-box {
+        margin-top: 20px;
+        order: 2;
+        width: 90%;
+        text-align: center;
+    }
+
+    .faq-section {
+        order: 1;
+        margin-bottom: 20px;
+    }
+
+    .contact-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+    }
+}
+
+/* Adjustments for Facebook Browser and iPhone XR */
+@media only screen and (max-width: 414px) and (max-height: 896px) {
+    .contact-box {
+        margin-top: 20px;
+        order: 2;
+        width: 90%;
+        text-align: center;
+    }
+
+    .faq-section {
+        order: 1;
+        margin-bottom: 20px;
+    }
+
+    .contact-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+    }
+}
+
+/* Ensure compatibility with overlapping queries */
+@media only screen and (max-width: 390px) and (max-height: 844px) {
+    .contact-box {
+        margin-top: 20px ;
+        width: 100% !important;
+        order: 2 !important;
+    }
+    .faq-section {
+        order: 1 !important;
+    }
+}
+@media only screen and (max-width: 460px) and (max-height: 768px) {
+    .contact-box {
+        margin-top: 30px;
+        order: 2;
+        width: 95%;
+        text-align: center;
+    }
+
+    .faq-section {
+        order: 1;
+        margin-bottom: 25px;
+    }
+
+    .contact-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+    }
+}
+
+/* Adjustments for 768px screens */
+@media only screen and (max-width: 768px) {
+    .contact-box {
+        margin-top: 40px;
+        order: 2;
+        width: 90%;
+        text-align: center;
+    }
+
+    .faq-section {
+        order: 1;
+        margin-bottom: 30px;
+    }
+
+    .contact-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+    }
+}
+@media only screen and (max-width:2560px) and (max-height:768px) {
+    #education {
+        max-width: 4000px !important;
+    }
+}
+@media screen and (min-width: 1920px) and (max-width: 2560px) and (max-height: 768px) {
+    #nav3 {
+        bottom: 18px;
+        padding: 9px 18px;
+        gap: 11px;
+    }
+    .nav-icons img {
+        width: 38px;
+        height: 38px;
+    }
+}
+
+@media screen and (max-width: 1440px) {
+    #nav3 {
+        bottom: 15px;
+        padding: 8px 16px;
+        gap: 10px;
+    }
+    .nav-icons img {
+        width: 35px;
+        height: 35px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #nav3 {
+        bottom: 12px;
+        padding: 6px 12px;
+        gap: 8px;
+    }
+    .nav-icons img {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+@media only screen and (max-width: 390px) and (max-height: 844px) {
+    #nav3 {
+        bottom: 10px;
+        padding: 5px 10px;
+        gap: 6px;
+    }
+    .nav-icons img {
+        width: 25px;
+        height: 25px;
+    }
+}
+@media only screen and (max-width:412) and (max-height:914) {
+    .navicon{
+        display: none;
+    }
+    
+}
