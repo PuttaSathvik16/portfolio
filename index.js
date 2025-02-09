@@ -308,6 +308,11 @@ document.addEventListener("DOMContentLoaded", function () {
 //denied for copying elements
 document.addEventListener('dragstart', event => event.preventDefault()); // Disable dragging images and videos
  // Disable dragging images and videos
+document.querySelectorAll(".frame a").forEach(link => {
+    link.addEventListener("click", function (event) {
+        event.stopPropagation(); // Allows the click to work without interfering scripts
+    });
+});
 //box animation in skills
 document.querySelectorAll('.box1').forEach(el => {
     el.addEventListener('mouseenter', () => console.log('Hovered!'));
