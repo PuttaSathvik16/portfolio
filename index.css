@@ -1050,7 +1050,14 @@ section {
     top: 0;
     left: 0;
 }
-
+.frame a {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    z-index: 2; /* Ensures it's above the video/image */;
+    pointer-events: auto !important;
+}
 .project:hover {
     background: linear-gradient(to bottom, #66c2ff, #0044cc);
     transform: scale(1.05);
@@ -1372,12 +1379,14 @@ section {
 }
 
 img, video {
-    pointer-events: none;
-    -webkit-user-select: none; /* Disable text/image selection */
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
 }
+.frame a img, .frame a video {
+    pointer-events: auto;
+}
+
 /*arrows*/
 /* Scroll Arrows Styling */
 #scroll-arrows {
