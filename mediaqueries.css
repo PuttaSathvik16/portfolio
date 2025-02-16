@@ -806,6 +806,9 @@ html, body {
         align-items: center;
         padding-right: 30px;
     }
+    .frame img{
+        width:170px;
+    }
     .description{
         font-size: 8px;
     }
