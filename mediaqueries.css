@@ -677,8 +677,8 @@ html, body {
 
     .sec_pro_container {
         width: 300px;
-        height: 300px;
-        padding-top: 150px;
+        height: 400px;
+        padding-top: 100px;
     }
 
     .sec_txt h1 {
@@ -833,7 +833,7 @@ html, body {
     }
 
     .frame img {
-        width: 100%;
+        width: 200px;
         height: 100%;
         object-fit: cover;
     }
