@@ -7,16 +7,6 @@
 body {
     font-family: IBM Plex Mono;
 }
-.custom-cursor {
-    position: absolute;
-    width: 32px; /* Adjust based on your image */
-    height: 32px;
-    background: url('cursor-removebg-preview.png') no-repeat center;
-    background-size: contain;
-    pointer-events: none; /* Prevent interactions */
-    transform: translate(-50%, -50%);
-    display: none; /* Initially hidden */
-}
 .background-container {
     position: relative;
     overflow: hidden;
