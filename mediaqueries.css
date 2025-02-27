@@ -22,7 +22,9 @@ html, body {
         align-items: center;
         text-align: center;
     }
-
+ .menulink ul{
+    z-index: 1;
+ }
     .secprocon2, .about-details-container {
         width: 100%;
         text-align: center;
@@ -555,8 +557,7 @@ html, body {
     }
     /* Projects Section */
     .project {
-        width: 40% !important;
-        max-width: 240px;
+        
         height: 300px;
     }
     /* Contact Section */
@@ -731,7 +732,7 @@ html, body {
 
     /* About Me Section */
     #about {
-        height: 1750px;
+        height: 1850px;
     }
 
     .about-details-container {
@@ -813,7 +814,7 @@ html, body {
 
     /* Projects Section */
     #projects {
-        height: 2000px !important;
+        height: 2300px !important;
     }
 
     .project {
@@ -824,19 +825,22 @@ html, body {
     .title1 {
         font-size: 15px !important;
     }
-
+/*changed*/
     .frame {
-        width: 200px;
         height: 200px;
         align-items: center;
         padding-right: 30px;
     }
 
     .frame img {
-        width: 200px;
+        width: 300px;
         height: 100%;
         object-fit: cover;
     }
+    .project video{
+        width:300px;
+    }
+    /*changed*/
 
     .description {
         font-size: 8px;
@@ -885,8 +889,7 @@ html, body {
     .contact-box.contact-form {
         display: flex;
         flex-direction: column;
-        width: 100% !important;
-        max-width: 480px !important;
+        
         padding: 15px;
         order: 2;
     }
@@ -903,14 +906,19 @@ html, body {
         flex-direction: column;
         align-items: center;
     }
-
+    .contact-box ,.contact-info{
+        width: 100%;
+    }
     .nav-icons {
         bottom: 5px;
         padding: 3px 5px;
         gap: 3px;
         max-width: 70% !important;
     }
-
+   .contact-buttons{
+    width: 260px;
+    align-items: center;
+   }
     .nav-icons img {
         width: 18px;
         height: 18px;
@@ -1069,3 +1077,277 @@ html, body {
     .navicon{
         display: none;
     }
+}
+@media (min-width: 1025px) {
+    .row {
+        flex-wrap: nowrap;
+    }
+    
+    .second-row {
+        justify-content: center;
+    }
+}
+
+/* Tablet - 768px */
+@media (max-width: 768px) {
+    .container2 {
+        padding: 0 15px;
+        gap: 30px;
+    }
+    
+    .row {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    
+    .project {
+        width: 340px;
+        height: 330px;
+        margin-bottom: 10px;
+    }
+    
+    .frame {
+        height: 180px;
+    }
+    
+    .project .title1 {
+        font-size: 1.2rem;
+        height: 45px;
+    }
+    
+    .description {
+        font-size: 0.85rem;
+        max-height: 250px;
+    }
+    
+    .second-row {
+        justify-content: center;
+    }
+}
+
+/* Large Mobile - 425px */
+@media (max-width: 425px) {
+    .navicon{
+        display: none;
+     }
+    .container2 {
+        padding: 0 10px;
+        gap: 25px;
+    }
+    
+    .row {
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+    }
+    
+    .project {
+        
+        height: 320px;
+        padding: 12px;
+        font-size: 10px;
+    }
+    
+    .frame {
+        height: 170px;
+        border-width: 3px;
+    }
+    
+    .project .title1 {
+        font-size: 1.1rem;
+        height: 40px;
+        margin-top: 6px;
+        margin-bottom: 8px;
+    }
+    
+    .description {
+        padding: 8px;
+        font-size: 0.85rem;
+        max-height: 230px;
+    }
+    
+    .project:hover {
+        transform: scale(1.03);
+    }
+}
+
+/* Medium Mobile - 375px */
+@media (max-width: 375px) {
+    .container2 {
+        padding: 0 8px;
+        gap: 20px;
+    }
+    
+    .row {
+        gap: 20px;
+    }
+    
+    .project {
+        max-width: 330px;
+        height: 310px;
+        padding: 10px;
+    }
+    
+    .frame {
+        height: 160px;
+        width: 270px;
+        border-width: 3px;
+    }
+    
+    .project .title1 {
+        font-size: 1rem;
+        height: 40px;
+        margin-top: 5px;
+        margin-bottom: 6px;
+    }
+    
+    .description {
+        padding: 8px;
+        font-size: 0.8rem;
+        max-height: 220px;
+    }
+}
+
+/* Small Mobile - 320px */
+@media (max-width: 320px) {
+    .container2 {
+        padding: 0 5px;
+        gap: 15px;
+    }
+    
+    .row {
+        gap: 15px;
+    }
+    
+    .project {
+        max-width: 390px;
+        height: 250px;
+        padding: 8px;
+    }
+    
+    .frame {
+        height: 150px;
+        width: 260px;
+        border-width: 2px;
+    }
+    .project img, .project video{
+        width: 260px;
+    }
+    
+    .project .title1 {
+        font-size: 0.95rem;
+        height: 38px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+    
+    .description {
+        padding: 6px;
+        font-size: 0.75rem;
+        margin-top: 8px;
+        max-height: 200px;
+    }
+    
+    /* Reduce hover scale for smallest screens to prevent overflow */
+    .project:hover {
+        transform: scale(1.02);
+    }
+}
+
+/* Fix for the second row spacing and alignment across all screen sizes */
+.second-row {
+    margin-top: 0;
+    width: 100%;
+}
+
+/* Ensure smooth transitions between screen sizes */
+@media (min-width: 426px) and (max-width: 767px) {
+    .project {
+        width: 380px;
+    }
+}
+
+/* Ensure proper spacing when only one project is in second row */
+.second-row:only-child {
+    justify-content: center;
+}
+/* Add these media queries at the end of your existing CSS */
+
+/* For tablets (768px) */
+@media screen and (max-width: 768px) {
+    .footer-container {
+        grid-template-columns: 1fr; /* Switch to single column */
+        grid-template-rows: auto auto auto; /* Three rows for the three sections */
+        gap: 20px; /* Slightly reduced gap */
+    }
+    
+    /* Contact Info Box */
+    .contact-box.contact-info {
+        grid-column: 1; /* Full width */
+        grid-row: 1; /* First row */
+    }
+    
+    /* FAQ Section */
+    .faq-section {
+        grid-column: 1; /* Full width */
+        grid-row: 2; /* Second row */
+    }
+    
+    /* Contact Form */
+    .contact-box.contact-form {
+        grid-column: 1; /* Full width */
+        grid-row: 3; /* Third row */
+    }
+    
+    /* Adjustments for better mobile experience */
+    #head1, #head2 {
+        font-size: 1.8rem; /* Smaller heading */
+    }
+    
+    .contact-footer {
+        min-height: auto; /* Remove fixed height requirement */
+        padding: 50px 0; /* Add some padding instead */
+    }
+    
+    /* Form improvements for mobile */
+    .contact-form input,
+    .contact-form textarea {
+        width: 100%; /* Full width inputs */
+    }
+}
+
+/* For large phones (425px) */
+@media screen and (max-width: 425px) {
+    .footer-container {
+        width: 95%; /* More width */
+        gap: 15px; /* Even smaller gap */
+        padding: 30px 10px; /* Less padding */
+    }
+    
+    /* Further reduce text sizes */
+    #head1, #head2 {
+        font-size: 1.5rem;
+    }
+    
+    .faq-question {
+        font-size: 1.3rem;
+    }
+    
+    .contact-btn {
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+    
+    .send-btn {
+        font-size: 16px;
+    }
+    
+    /* Smaller FAQ controls */
+    .faq-arrow {
+        padding: 8px 12px;
+    }
+    
+    .faq-title {
+        font-size: 1.3rem;
+    }
+}
