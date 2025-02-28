@@ -4,6 +4,7 @@
     padding: 0;
     box-sizing: border-box;
 }
+.typewrite > .wrap { border-right: 0.08em solid #000000; }
 body {
     font-family: "IBM Plex Mono";
     cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath fill='%23FFFFFF' stroke='%23020202' stroke-width='2' d='M5.5 3.21V20.8c0 .45.54.67.85.35l4.86-4.86a.5.5 0 0 1 .35-.15h6.87a.5.5 0 0 0 .35-.85L6.35 2.85a.5.5 0 0 0-.85.35Z'/%3E%3C/svg%3E"),
@@ -228,10 +229,6 @@ a:hover {
 }
 .hidden {
     opacity: 0;
-}
-@keyframes typing {
-    from { width: 0; }
-    to { width: 100%; }
 }
 @keyframes blink {
     50% { border-color: transparent; }
@@ -793,6 +790,32 @@ section {
     font-family: League Spartan,monospace;
     flex-direction: column;/* Ensure text is aligned to the left */
 }
+/* Education section with the new background pattern */
+#education {
+    position: relative;
+    overflow: hidden;
+}
+
+#education::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    --s: 140px; /* control the size */
+    --_g: #0000 52%, #170409 /* first color */ 54% 57%, #0000 59%;
+    background: radial-gradient(farthest-side at -33.33% 50%, var(--_g)) 0
+        calc(var(--s) / 2),
+      radial-gradient(farthest-side at 50% 133.33%, var(--_g)) calc(var(--s) / 2)
+        0,
+      radial-gradient(farthest-side at 133.33% 50%, var(--_g)),
+      radial-gradient(farthest-side at 50% -33.33%, var(--_g)), #67917a; /* second color */
+    background-size: calc(var(--s) / 4.667) var(--s),
+      var(--s) calc(var(--s) / 4.667);
+    opacity: 0.9; /* Adjust opacity to ensure content visibility */
+}
 /* Scroll animation */
 /* Animation for Education Section */
 #education.hidden {
@@ -1062,20 +1085,6 @@ hr {
     align-items: center;
     overflow: hidden;
 }
-.video-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw; /* Set full width */
-    height: 100%; /* Set full height */
-    object-fit: cover; /* Ensures the video scales proportionally */
-    z-index: -1; 
-    background-color: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);; /* Adjust for better readability */
-}
-
 section {
     position: relative;
     z-index: 1;
@@ -1117,17 +1126,6 @@ section {
     border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);; /* Ensures no extra content outside the bounds */
 }
-
-#education .video-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Ensure the video scales proportionally to cover the background */
-    z-index: -1;  /* Places the video behind the content */
-}
-
 #education .content {
     position: relative;
     z-index: 1; /* Ensures the content appears above the video */
@@ -1373,13 +1371,15 @@ section {
     opacity: 1;
     transform: scale(1);
 }
+
+/* New Animated Project Section Background */
 #projects {
     position: relative;
     overflow: hidden;
     padding: 50px 0;
-  }
-  
-  #projects::before {
+}
+
+#projects::before {
     content: "";
     position: absolute;
     top: 0;
@@ -1387,74 +1387,93 @@ section {
     width: 100%;
     height: 100%;
     z-index: -1;
-    --s: 80px;
-    --_g: #0000, var(--c1) 2deg calc(var(--a) - 2deg),#0000 var(--a);
+    --s: 200px; /* control the size*/
+    --c1: #1d1d1d;
+    --c2: #4e4f51;
+    --c3: #3c3c3c;
+    
+    background:
+      repeating-conic-gradient(from 30deg, rgba(0,0,0,0) 0 120deg, var(--c3) 0 50%) 
+       calc(var(--s)/2) calc(var(--s)*tan(30deg)/2),
+      repeating-conic-gradient(from 30deg, var(--c1) 0 60deg, var(--c2) 0 120deg, var(--c3) 0 50%);
+    background-size: var(--s) calc(var(--s)*tan(30deg));
+    animation: movingShadows 10s infinite alternate ease-in-out;
+}
+
+/* Shadow movement animation */
+@keyframes movingShadows {
+    0% {
+        --c1: #1d1d1d;
+        --c2: #4e4f51;
+        --c3: #3c3c3c;
+        background-position: 0% 0%;
+    }
+    25% {
+        --c1: #232323;
+        --c2: #3a3b3d;
+        --c3: #2a2a2a;
+        background-position: 2% 1%;
+    }
+    50% {
+        --c1: #1a1a1a;
+        --c2: #424345;
+        --c3: #333333;
+        background-position: 0% 2%;
+    }
+    75% {
+        --c1: #262626;
+        --c2: #3d3e40;
+        --c3: #2d2d2d;
+        background-position: -2% 1%;
+    }
+    100% {
+        --c1: #1d1d1d;
+        --c2: #4e4f51;
+        --c3: #3c3c3c;
+        background-position: 0% 0%;
+    }
+}
+
+/* Add a subtle overlay effect */
+#projects::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
     background: 
-      conic-gradient(from calc(-45deg  - var(--a)/2) at top    var(--p) left  var(--p),var(--_g)),
-      conic-gradient(from calc(-45deg  - var(--a)/2) at top    var(--p) left  var(--p),var(--_g)),
-      conic-gradient(from calc( 45deg  - var(--a)/2) at top    var(--p) right var(--p),var(--_g)),
-      conic-gradient(from calc( 45deg  - var(--a)/2) at top    var(--p) right var(--p),var(--_g)),
-      conic-gradient(from calc(-135deg - var(--a)/2) at bottom var(--p) left  var(--p),var(--_g)),
-      conic-gradient(from calc(-135deg - var(--a)/2) at bottom var(--p) left  var(--p),var(--_g)),
-      conic-gradient(from calc( 135deg - var(--a)/2) at bottom var(--p) right var(--p),var(--_g)),
-      conic-gradient(from calc( 135deg - var(--a)/2) at bottom var(--p) right var(--p),var(--_g))
-      var(--c2);
-    background-size: calc(2*var(--s)) calc(2*var(--s));
-    animation: m 2s infinite alternate linear;
-  }
-  
-  @property --a {
-    syntax: '<angle>';
-    inherits: true;
-    initial-value: 0deg;
-  }
-  @property --p {
-    syntax: '<percentage>';
-    inherits: true;
-    initial-value: 0%;
-  }
-  @property --c1 {
-    syntax: '<color>';
-    inherits: true;
-    initial-value: #000;
-  }
-  @property --c2 {
-    syntax: '<color>';
-    inherits: true;
-    initial-value: #000;
-  }
-  
-  @keyframes m {
-    0%,15% {
-      --a: 135deg;
-      --p: 20%;
-      --c1: #3B8183;
-      --c2: #FAD089;
-      background-position: 0 0,var(--s) var(--s);
+        radial-gradient(circle at 30% 20%, rgba(100, 100, 100, 0.05) 0%, rgba(0, 0, 0, 0) 25%),
+        radial-gradient(circle at 70% 60%, rgba(100, 100, 100, 0.05) 0%, rgba(0, 0, 0, 0) 25%);
+    animation: lightMovement 15s infinite alternate ease-in-out;
+}
+
+@keyframes lightMovement {
+    0% {
+        background-position: 0% 0%;
     }
-    45%,50% {
-      --a: 90deg;
-      --p: 25%;
-      --c1: #3B8183;
-      --c2: #FAD089;
-      background-position: 0 0,var(--s) var(--s);
+    50% {
+        background-position: 10% 10%;
     }
-    50.01%,55% {
-      --a: 90deg;
-      --p: 25%;
-      --c2: #3B8183;
-      --c1: #FAD089;
-      background-position: var(--s) 0,0 var(--s);
+    100% {
+        background-position: 0% 0%;
     }
-    85%,100% {
-      --a: 135deg;
-      --p: 20%;
-      --c2: #3B8183;
-      --c1: #FAD089;
-      background-position: var(--s) 0,0 var(--s);
-    }
-  }
-  
+}
+
+.title1 {
+    margin-top: 15px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+/* Optional: Add a subtle glow to project titles when hovering over cards */
+.project:hover .title1 {
+    color: white;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
 /*contact info*/
 /* Contact Footer Section */
 .contact-footer {
