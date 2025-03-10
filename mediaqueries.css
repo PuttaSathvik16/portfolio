@@ -1351,3 +1351,20 @@ html, body {
         font-size: 1.3rem;
     }
 }
+@media screen and (max-width:440px ) and (max-width:956px){
+    .navicon{
+        display: none;
+     }
+     #about{
+        height: 1500px;
+     }
+     #featured{
+        height: 1500px;
+     }
+     #workexperience{
+        height:1600px;
+     }
+     #education{
+        height: 150000px;
+     }
+}
