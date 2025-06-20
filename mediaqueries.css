@@ -1356,27 +1356,30 @@ html, body {
         display: none;
      }
      #about{
-        height: 2100px;
+        min-height: 600px;
+        height: auto !important;
      }
      #featured{
-        height: 1500px;
+        min-height: 600px;
+        height: auto !important;
      }
      #workexperience{
-        height:1700px;
+        min-height: 600px;
+        height: auto !important;
      }
      #education{
-        height: 170000px;
+        min-height: 600px;
         height: auto !important;
-        min-height: 300px;
         max-height: none !important;
         display: block !important;
      }
      #skills{
-        height:1800px;
-
+        min-height: 600px;
+        height: auto !important;
      }
      #projects{
-        height:2200px;
+        min-height: 600px;
+        height: auto !important;
      }
 }
 
