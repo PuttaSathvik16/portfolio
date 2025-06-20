@@ -433,27 +433,101 @@ async function fixTransitions() {
     ];
 
     let currentIndex = 0;
+    let autoSlideInterval;
+    let isTransitioning = false;
 
     const questionElement = document.getElementById("faq-question");
 
-    // Function to update the FAQ content
+    // Function to update the FAQ content with smooth transition
     function updateFAQ(index) {
-        questionElement.innerHTML = `
-            <div class="faq-question">${faqs[index].question}</div>
-            <div class="faq-answer">${faqs[index].answer}</div>
-        `;
+        if (isTransitioning) return;
+        isTransitioning = true;
+
+        // Add fade-out class
+        questionElement.style.opacity = '0';
+        questionElement.style.transform = 'translateY(20px)';
+
+        // Wait for fade-out animation
+        setTimeout(() => {
+            questionElement.innerHTML = `
+                <div class="faq-question">${faqs[index].question}</div>
+                <div class="faq-answer">${faqs[index].answer}</div>
+            `;
+            
+            // Add fade-in class
+            questionElement.style.opacity = '1';
+            questionElement.style.transform = 'translateY(0)';
+            
+            // Reset transition flag after animation
+            setTimeout(() => {
+                isTransitioning = false;
+            }, 500);
+        }, 300);
+    }
+
+    // Function to start auto-sliding
+    function startAutoSlide() {
+        stopAutoSlide(); // Clear any existing interval
+        autoSlideInterval = setInterval(() => {
+            if (!isTransitioning) {
+                currentIndex = (currentIndex + 1) % faqs.length;
+                updateFAQ(currentIndex);
+            }
+        }, 5000); // Change every 5 seconds
+    }
+
+    // Function to stop auto-sliding
+    function stopAutoSlide() {
+        if (autoSlideInterval) {
+            clearInterval(autoSlideInterval);
+        }
     }
 
     // Navigation button logic
     document.getElementById("faq-prev").addEventListener("click", () => {
-        currentIndex = (currentIndex - 1 + faqs.length) % faqs.length; // Circular navigation
-        updateFAQ(currentIndex);
+        if (!isTransitioning) {
+            currentIndex = (currentIndex - 1 + faqs.length) % faqs.length;
+            updateFAQ(currentIndex);
+            stopAutoSlide();
+            startAutoSlide(); // Restart auto-slide after manual interaction
+        }
     });
 
     document.getElementById("faq-next").addEventListener("click", () => {
-        currentIndex = (currentIndex + 1) % faqs.length; // Circular navigation
-        updateFAQ(currentIndex);
+        if (!isTransitioning) {
+            currentIndex = (currentIndex + 1) % faqs.length;
+            updateFAQ(currentIndex);
+            stopAutoSlide();
+            startAutoSlide(); // Restart auto-slide after manual interaction
+        }
     });
+
+    // Add CSS for smooth transitions
+    const style = document.createElement('style');
+    style.textContent = `
+        #faq-question {
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+            opacity: 1;
+            transform: translateY(0);
+        }
+    `;
+    document.head.appendChild(style);
+
+    // Start auto-sliding when FAQ section is in view
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                startAutoSlide();
+            } else {
+                stopAutoSlide();
+            }
+        });
+    }, { threshold: 0.5 });
+
+    const faqSection = document.querySelector('.faq-section');
+    if (faqSection) {
+        observer.observe(faqSection);
+    }
 
     // Initialize with the first FAQ
     updateFAQ(currentIndex);
