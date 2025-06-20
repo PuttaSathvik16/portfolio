@@ -1362,9 +1362,22 @@ html, body {
         height: 1500px;
      }
      #workexperience{
-        height:1600px;
+        height:1700px;
      }
      #education{
-        height: 150000px;
+        height: 170000px;
+        height: auto !important;
+        min-height: 300px;
+        max-height: none !important;
+        display: block !important;
+     }
+     #skills{
+        height:1800px;
+
+     }
+     #projects{
+        height:2200px;
      }
 }
+
+
