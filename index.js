@@ -507,6 +507,131 @@ window.addEventListener('load', () => {
     const scrollElements = document.querySelectorAll('.animate-on-scroll, .stagger-container, .reveal, .draw-on-scroll');
     scrollElements.forEach(el => observer.observe(el));
 
+    // Quick Ball Logic (Draggable & Responsive)
+    const qbTrigger = document.getElementById('quick-ball-trigger');
+    const qbContainer = document.getElementById('quick-ball-container');
+
+    if (qbTrigger && qbContainer) {
+        let isDragging = false;
+        let startX, startY, initialLeft, initialTop;
+        let hasMoved = false;
+
+        // --- Drag Functionality (Touch & Mouse) ---
+        const startDrag = (e) => {
+            // Only drag if clicking the trigger (ball)
+            if (e.target.closest('.qb-item')) return; // Allow clicking items
+
+            isDragging = true;
+            hasMoved = false;
+            qbContainer.classList.add('dragging'); // Disable transitions during drag
+
+            const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+            const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
+
+            // Get current computed position
+            const rect = qbContainer.getBoundingClientRect();
+            startX = clientX;
+            startY = clientY;
+
+            // We use right/bottom in CSS, but for dragging we'll switch to fixed left/top calculation or modify transform
+            // Easier approach: Use transform translate for dragging, then commit to left/top or right/bottom on release.
+            // Let's stick to modifying 'right' and 'bottom' or convert to 'left'/'top'.
+            // To allow free movement, let's switch to left/top fixed positioning once dragged.
+
+            // Calculate current left/top based on viewport
+            initialLeft = rect.left;
+            initialTop = rect.top;
+
+            // Remove bottom/right and set explicit left/top to allow dragging
+            qbContainer.style.bottom = 'auto';
+            qbContainer.style.right = 'auto';
+            qbContainer.style.left = `${initialLeft}px`;
+            qbContainer.style.top = `${initialTop}px`;
+        };
+
+        const onDrag = (e) => {
+            if (!isDragging) return;
+            e.preventDefault(); // Prevent scroll on touch
+
+            const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+            const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
+
+            const deltaX = clientX - startX;
+            const deltaY = clientY - startY;
+
+            if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
+                hasMoved = true;
+            }
+
+            let newLeft = initialLeft + deltaX;
+            let newTop = initialTop + deltaY;
+
+            // Boundary constraints
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+            const ballSize = qbContainer.offsetWidth;
+
+            if (newLeft < 0) newLeft = 0;
+            if (newLeft > viewportWidth - ballSize) newLeft = viewportWidth - ballSize;
+            if (newTop < 0) newTop = 0;
+            if (newTop > viewportHeight - ballSize) newTop = viewportHeight - ballSize;
+
+            qbContainer.style.left = `${newLeft}px`;
+            qbContainer.style.top = `${newTop}px`;
+        };
+
+        const stopDrag = () => {
+            if (!isDragging) return;
+            isDragging = false;
+            qbContainer.classList.remove('dragging');
+
+            // Optional: Snap to nearest edge (X axis)
+            /*
+            const rect = qbContainer.getBoundingClientRect();
+            const viewportWidth = window.innerWidth;
+            if (rect.left + rect.width / 2 < viewportWidth / 2) {
+                qbContainer.style.left = '10px';
+            } else {
+                qbContainer.style.left = (viewportWidth - rect.width - 10) + 'px';
+            }
+            */
+        };
+
+        // Event Listeners
+        qbTrigger.addEventListener('mousedown', startDrag);
+        qbTrigger.addEventListener('touchstart', startDrag, { passive: false });
+
+        window.addEventListener('mousemove', onDrag);
+        window.addEventListener('touchmove', onDrag, { passive: false });
+
+        window.addEventListener('mouseup', stopDrag);
+        window.addEventListener('touchend', stopDrag);
+
+        // Toggle Menu (Only if not dragged)
+        qbTrigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (!hasMoved) {
+                qbContainer.classList.toggle('active');
+            }
+        });
+
+        // Close when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!hasMoved && !qbContainer.contains(e.target)) {
+                qbContainer.classList.remove('active');
+            }
+        });
+
+        // Close when clicking a menu item
+        const qbItems = document.querySelectorAll('.qb-item');
+        qbItems.forEach(item => {
+            item.addEventListener('click', () => {
+                // Instant close for direct action
+                qbContainer.classList.remove('active');
+            });
+        });
+    }
+
     // Start the physics loop
     requestAnimationFrame(update);
 });
