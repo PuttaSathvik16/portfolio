@@ -11,7 +11,9 @@
     html,
     body {
         overflow-x: hidden;
-        width: 100vw;
+        width: 100%;
+        /* Fixes scrollbar overflow issue caused by 100vw */
+        max-width: 100%;
         position: relative;
     }
 
@@ -336,34 +338,38 @@
         justify-content: center;
     }
 
-    /* Capsules */
+    /* Capsules - Push back or hide if too cluttered */
     .capsule-area {
-        display: block;
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
+        opacity: 0.3;
+        /* Reduce opacity significantly */
+        z-index: -1;
+        /* Ensure behind everything */
         pointer-events: none;
-        z-index: 1;
-        margin-top: 0;
+        /* Prevent blocking clicks */
     }
 
     .capsule {
-        transform: scale(0.55);
-        pointer-events: auto;
-        opacity: 0.7;
+        transform: scale(0.4);
+        /* Make much smaller */
         white-space: nowrap;
     }
 
+    /* Huge Background Text - Fix Overlap */
     .huge-bg-text {
-        font-size: 15vw;
-        top: 15%;
-        z-index: 0;
+        font-size: 10vw;
+        /* Reduce size */
+        top: 10%;
+        opacity: 0.05;
+        /* Fade out more */
+        z-index: -2;
+        /* Way back */
     }
 
     /* Profile Frame */
     .profile-polaroid {
-        width: 200px;
+        width: 180px;
+        /* Slightly smaller for better fit */
+        margin-top: 20px;
     }
 
     /* Bento Grid Mobile Padding */
