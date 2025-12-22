@@ -13,6 +13,28 @@ body {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+    /* Prevent font zooming on rotation */
+    -webkit-font-smoothing: antialiased;
+    /* Crisp text on Mac/iOS */
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* iOS Reset for Buttons/Inputs */
+button,
+input,
+textarea,
+select {
+    -webkit-appearance: none;
+    /* Remove default iOS styling */
+    appearance: none;
+    border-radius: 0;
+    /* Reset default rounded corners (we add our own later) */
+}
+
+/* Remove gray tap highlight on mobile */
+* {
+    -webkit-tap-highlight-color: transparent;
 }
 
 /* Typography */
@@ -171,6 +193,9 @@ h3 {
 /* Hero Section */
 .hero-section {
     min-height: 100vh;
+    /* Fallback */
+    min-height: 100svh;
+    /* iOS Safari Fix */
     display: flex;
     flex-direction: column;
     justify-content: center;
