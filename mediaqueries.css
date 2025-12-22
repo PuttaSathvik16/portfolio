@@ -1,1386 +1,479 @@
-html, body {
-    width: 100%;
-    overflow-x: hidden;
-    margin: 0;
-    padding: 0;
-}
-@media screen and (max-width: 1200px) {
-    #desnav {
-        display: none;
-    }
-    #nav2 {
-        display: flex;
-    }
+/* =========================================
+   RESPONSIVE DESIGN (Centralized)
+   ========================================= */
 
-    .section-container {
-        flex-direction: column;
-        align-items: center;
-    }
+/* -------------------------------------------
+   Tablet / Small Desktop (max-width: 1024px)
+   ------------------------------------------- */
+@media (max-width: 1024px) {
 
+    /* About Section Layout */
     .about-section-content {
-        flex-direction: column; /* Stack the image and content vertically */
-        align-items: center;
-        text-align: center;
+        flex-direction: column;
+        gap: 3rem;
     }
- .menulink ul{
-    z-index: 1;
- }
-    .secprocon2, .about-details-container {
+
+    .secprocon2 {
+        justify-content: center;
         width: 100%;
-        text-align: center;
+    }
+
+    .secprocon2::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .secprocon2:hover::after {
+        left: 50%;
+        transform: translateX(-50%) rotate(3deg);
     }
 
     .about-details-container {
-        height: auto; /* Allow the height to adjust based on content */
+        margin-left: 0;
+        width: 100%;
+        margin-top: 2rem;
     }
 
-    .details-containers {
-        padding: 1rem;
-        font-size: 1.25rem; /* Adjust the font size for better readability */
+    .about-containers {
+        padding: 2rem;
     }
 
-    /* Adjust the layout of the featured boxes */
-    .box-wrapper {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 20px; /* Adjust gap as needed */
+    /* Hero Text Adjustment */
+    .hero-text h1 {
+        font-size: 3rem;
     }
 
-    .box-container {
-        width: calc(50% - 20px); /* Two boxes per row */
-        margin-bottom: 20px; /* Add margin between rows */
+    #desnav {
+        padding: 20px 40px;
     }
 
-    /* Adjust the layout of the experience boxes */
-    .experience-box-wrapper {
-        flex-direction: column; /* Stack boxes */
+    /* Bento Grid Adjustment */
+    .bento-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .span-2 {
+        grid-column: span 1;
+    }
+
+    /* Footer / Contact Section */
+    .footer-section {
+        flex-direction: column;
         align-items: center;
-        gap: 30px; /* Space between boxes */
+        text-align: center;
+        padding: 40px 20px;
     }
 
-    .experience-box {
-        width: 90%; /* Slightly smaller than full width */
-        max-width: 600px; /* Prevents excessive stretching */
-        margin: 0 auto; /* Centering */
+    .collab-content {
+        max-width: 100%;
+        margin-bottom: 40px;
     }
-    .left{
+
+    .collab-content h2 {
+        font-size: 3rem;
+    }
+
+    .footer-container {
+        width: 100%;
+        grid-template-columns: 1fr;
+    }
+}
+
+/* -------------------------------------------
+   Tablet (max-width: 900px)
+   ------------------------------------------- */
+@media (max-width: 900px) {
+
+    /* Box Wrapper (Skills/Bento) */
+    .box-wrapper {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Experience Grid */
+    .experience-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Skill Tree */
+    .tree-trunk {
+        left: 20px;
+    }
+
+    .branch-wrapper {
+        width: 100%;
+        padding-left: 60px;
+    }
+
+    .branch-wrapper.left,
+    .branch-wrapper.right {
+        align-self: flex-start;
+        text-align: left;
+    }
+
+    .branch-connector {
+        width: 60px;
+        /* Connects fully to content at 60px padding */
+        left: 0;
+        right: auto !important;
+        top: 50px;
+    }
+
+    /* Override animation origin for left branches (now on right of trunk) */
+    .branch-wrapper.left .branch-connector.draw-on-scroll {
+        transform-origin: left !important;
+    }
+
+    /* Staggered Delay for Connectors on Mobile (Progressive Drawing) */
+    .branch-wrapper:nth-child(2) .branch-connector.active {
+        transition-delay: 0.4s;
+    }
+
+    .branch-wrapper:nth-child(3) .branch-connector.active {
+        transition-delay: 0.6s;
+    }
+
+    .branch-wrapper:nth-child(4) .branch-connector.active {
+        transition-delay: 0.8s;
+    }
+
+    .branch-wrapper:nth-child(5) .branch-connector.active {
+        transition-delay: 1.0s;
+    }
+
+    .branch-wrapper:nth-child(6) .branch-connector.active {
+        transition-delay: 1.2s;
+    }
+
+    .branch-wrapper:nth-child(7) .branch-connector.active {
+        transition-delay: 1.4s;
+    }
+
+    .branch-wrapper.left .skill-cluster {
+        justify-content: flex-start;
+    }
+
+    .ecosystem-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    /* Bento Grid Card */
+    .card {
+        flex-direction: column;
+        padding: 40px;
         text-align: center;
-        padding-left: 20px;
+    }
+
+    .card h2 {
+        font-size: 2.2rem;
+    }
+
+    /* Old Footer Container (Backwards Compat) */
+    .footer-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* -------------------------------------------
+   Mobile Landscape / Large Phone (max-width: 768px)
+   ------------------------------------------- */
+@media (max-width: 768px) {
+
+    /* Grids to Single Column */
+    .experience-grid,
+    .education-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .edu-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 40px;
+    }
+
+    /* Navbar: Hamburger Menu Layout */
+    .nav-wrapper {
+        top: 10px;
+        padding: 0 10px;
+    }
+
+    #desnav {
+        padding: 15px 25px;
         flex-direction: row;
-    }
-    #education {
-        width: 100%; /* Reduce width */
-        max-width: 5000px; /* Prevent it from being too wide */
-        padding: 30px;
-        display: flex;
-        flex-direction: column; 
-        max-height: 60px;/* Adjust padding */
-    }
-    .cont{
-        text-align: center;
-        padding-right: 40px;
-    }
-    /* Reduce Education Box Size */
-    /* Reduce Icon Size */
-    .icon1 {
-        width: 60px;
-        height: 60px;
-        align-items: center;
-    }
-
-    /* Reduce Text Size */
-    .title1 {
-        font-size: 1.4rem; /* Reduce heading size */
-    }
-
-    .edu-entry p {
-        font-size: 1rem; /* Adjust font size */
-        text-align: center; /* Center text */
-    }
-    .container1 {
-        max-width: 1200px;
-        margin: 0 auto;
-        display: flex;
         flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .section1 {
-        flex: 1 1 calc(50% - 40px); /* Adjust width to fit two in a row with spacing */
-        margin: 20px;
-    }
-
-    .grid {
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-        gap: 15px;
-    }
-
-    .box1 {
-        width: 100px;
-        height: 100px;
-    }
-
-    .grid {
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    }
-    .row {
-            flex-wrap: wrap; /* Allow wrapping for better layout */
-            justify-content: center; /* Center projects */
-        }
-    
-        .project {
-            width: calc(50% - 20px); /* Two projects per row */
-            margin-bottom: 20px; /* Spacing between rows */
-        }
-        #aboutme .videobg{
-            max-height: 5000px;
-        }
-        section:not(#profile) .video-bg {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Ensures video scales proportionally */
-        }
-    
-        #profile .video-bg {
-            object-fit: contain; /* Profile section remains unchanged */
-        }
-    }
-@media screen and (max-width: 768px) { /* iPhone Screen Sizes */
-    #desnav {
-        display: none;
-    }
-    #nav2 {
-        display: flex;
-    }
-
-    .section-container {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    /* About Section */
-    .about-section-content {
-        flex-direction: column; /* Stack the image and content vertically */
-        align-items: center;
-        text-align: center;
-    }
-
-    .secprocon2, .about-details-container {
-        width: 100%;
-        text-align: center;
-    }
-
-    .about-details-container {
-        height: auto; /* Allow the height to adjust based on content */
-    }
-
-    .details-containers {
-        padding: 1rem;
-        font-size: 1rem; /* Slightly smaller font for smaller screens */
-    }
-
-    /* Featured Section */
-    .box-wrapper {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px; /* Reduced gap for smaller screens */
-    }
-
-    .box-container {
-        width: calc(100% - 20px); /* Full-width on smaller screens */
-        margin-bottom: 15px; /* Reduce margin for better spacing */
-    }
-
-    /* Experience Section */
-    .experience-box-wrapper {
-        flex-direction: column; /* Stack vertically */
-        align-items: center;
-        gap: 20px; /* Adjust spacing for smaller screens */
-    }
-
-    .experience-box {
-        width: 95%; /* Slightly wider for smaller screens */
-        max-width: 500px; /* Prevents excessive stretching */
-        margin: 10px auto; /* Center and add margin */
-        padding: 15px; /* Reduce padding for better fit */
-    }
-
-    /* Education Section */
-    .left {
-        text-align: center;
-        padding-left: 0px; /* Reset padding for small screens */
-        flex-direction: column; /* Ensure stacking */
-    }
-
-    #education {
-        width: 1000px; /* Make it smaller */ /* Limit max width */
-        padding: 20px;
-        height: 100vh; /* Reduce padding */
-    }
-    #education {
-        position: relative;
-        width: 100%;
-        height: 100vh; /* Full viewport height */
-        overflow: hidden;
-    }
-
-    /* Stack Education Entries */
-    .edu-entry {
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        padding: 10px;
-    }
-
-    /* Adjust Icon Size */
-    .icon1 {
-        width: 50px;
-        height: 50px;
-    }
-
-    /* Reduce Font Size */
-    .title1 {
-        font-size: 1.2rem; /* Smaller title */
-    }
-
-    .edu-entry p {
-        font-size: 0.9rem; /* Smaller text */
-        text-align: center;
-    }
-
-    /* Buttons & Text Adjustments */
-    .btncon {
-        flex-direction: column; /* Stack buttons */
-        align-items: center;
-    }
-
-    .btn {
-        width: 100%; /* Full width for easy clicking */
-        font-size: 1rem;
-        padding: 10px;
-    }
-    .container1 {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .section1 {
-        flex: 1 1 calc(100% - 40px); /* Full width with spacing */
-        margin: 20px;
-    }
-
-    .grid {
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-        gap: 15px;
-    }
-
-    .box1 {
-        width: 100px;
-        height: 100px;
-    }
-
-    .grid {
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    }
-    .row {
-        flex-wrap: wrap; /* Allow wrapping for small screens */
-        justify-content: center;
-    }
-
-    .project {
-        width: 90%; /* Make projects full-width */
-        max-width: 320px;
-        height: 400px;
-    }
-
-    .frame {
-        width: 100%; /* Ensure video/images fit */
-    }
-    section:not(#profile) .video-bg {
-        width: 100%;
-        height: 100%;
-        object-fit: cover; /* Adjust video to cover sections */
-    }
-
-    #profile .video-bg {
-        object-fit: contain; /* Maintain original appearance in profile section */
-    }
-    .footer-container {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .contact-box {
-        width: 100%;
-        max-width: 500px;
-    }
-}
-/* General adjustments for all screen sizes */
-@media screen and (max-width: 1200px) {
-    #desnav {
-        display: none;
-    }
-    #nav2 {
-        display: flex;
         justify-content: space-between;
-    }
-
-    .section-container {
-        flex-direction: column;
         align-items: center;
-    }
-    .navicon{
-        left:100px;
-    }
-
-    /* Profile Section */
-    #profile {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        height: auto;
-        padding: 50px 0;
-    }
-
-    .sec_pro_container {
-        width: 300px;
-        height: 300px;
-    }
-
-    .sec_pro_container img {
-        width: 100%;
-        height: 100%;
-    }
-
-    .sec_txt {
-        text-align: center;
-        margin-top: 20px; /* Add margin to separate text from image */
-    }
-
-    /* About Section */
-    .about-section-content {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .secprocon2, .about-details-container {
-        width: 100%;
-        text-align: center;
-    }
-
-    .about-details-container {
-        height: auto;
-        padding: 20px;
-    }
-
-    /* Featured Section */
-    .box-wrapper {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 20px;
-    }
-
-    .box-container {
-        width: calc(50% - 20px); /* Two boxes per row */
-    }
-
-    /* Work Experience */
-    .experience-box-wrapper {
-        flex-direction: column;
-        align-items: center;
-        gap: 30px;
-    }
-
-    .experience-box {
-        width: 80%;
-        max-width: 600px;
-
-    }
-
-    /* Education Section */
-    .edu-entry {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-    .clg-details{
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        gap:5px;
-    }
-
-    .icon1 {
-        width: 60px;
-        height: 60px;
-        
-    }
-
-    .title1 {
-        font-size: 1.6rem;
-    }
-
-    /* Skills Section */
-    .container1 {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .section1 {
-        flex: 1 1 calc(30% - 40px);
-        margin: 10px;
-    }
-
-    /* Projects Section */
-    .row {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .project {
-        width: calc(50% - 20px);
-        margin-bottom: 20px;
-    }
-
-    /* Contact Section */
-    .footer-container {
-        flex-direction: column;
-        text-align: center;
-        gap: 30px;
-    }
-
-    .contact-box {
-        width: 90%;
-    }
-}
-
-/* Adjustments for Tablets & Large Phones (max-width: 768px) */
-@media screen and (max-width: 768px) {
-    /* Profile Section */
-    #profile {
-        padding: 40px 0;
-    }
-
-    .sec_pro_container {
-        width: 250px;
-        height: 250px;
-    }
-
-    .sec_txt h1 {
-        font-size: 2.5rem;
-    }
-
-    .sec_txt_p2 {
-        font-size: 1.5rem;
-    }
-
-    /* About Me Section */
-    .about-details-container {
-        font-size: 1.1rem;
-    }
-
-    /* Featured Section */
-    .box-container {
-        width: calc(100% - 20px);
-    }
-
-    /* Work Experience */
-    .experience-box {
-        width: 80%;
-        max-width: 300px;
-        font-size: 10px;
-    }
-
-    /* Education Section */
-    .title1 {
-        font-size: 1.4rem;
-    }
-.clg-details{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 5px;
-}
-.icon1{
-    align-items: center;
-    margin-right: 25px;
-    width: 80px;
-    height:80px;
-}
-    /* Skills Section */
-    .container1 {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 20px; /* Add spacing between sections */
-    }
-
-    .section1 {
-        width: 100%; /* Full width for each section */
-        text-align: center;
-    }
-
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr); /* Two items per row */
-        gap: 15px; /* Reduce excessive spacing */
-        justify-items: center; 
-        /* Center the items */
-    }
-
-    .box1 {
-        width: 80px; /* Reduce box size */
-        height: 80px;
-    }
-
-    .box1 img {
-        width: 50px; /* Scale down images */
-        height: auto;
-    }
-
-    /* Adjustments for better spacing */
-    .combined-row {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 15px;
-        width: 100%;
-    }
-
-    .section1 h2 {
-        font-size: 1.4rem; /* Adjust heading size */
-        margin-bottom: 10px;
-    }
-    /* Projects Section */
-    .project {
-        
-        height: 300px;
-    }
-    /* Contact Section */
-    .contact-box {
-        width: 100%;
-    }
-}
-
-/* Adjustments for Small Phones (max-width: 480px) */
-@media screen and (max-width: 480px) {
-    /* Profile Section */
-    .sec_pro_container {
-        width: 200px;
-        height: 200px;
-    }
-
-    .sec_txt h1 {
-        font-size: 2rem;
-    }
-
-    .sec_txt_p2 {
-        font-size: 1.2rem;
-    }
-
-    /* About Me Section */
-    .about-details-container {
-        font-size: 1rem;
-    }
-
-    /* Featured Section */
-    .box-wrapper {
-        gap: 10px;
-    }
-
-    /* Work Experience */
-    .experience-box {
-        width: 100%;
-        padding: 15px;
-    }
-
-    /* Education Section */
-    .title1 {
-        font-size: 1.2rem;
-    }
-
-    /* Skills Section */
-    .container1 {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 5px; /* Reduce spacing for better fit */
-        margin-top: 10px;
-    }
-
-    .section1 {
-        width: 100%; /* Full width */
-        text-align: center;
-        margin-bottom: 5px;
-    }
-
-    .section1 h2 {
-        font-size: 0.9rem; /* Smaller heading size */
-        margin-bottom: 5px;
-    }
-
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr); /* Three items per row */
-        gap: 5px; /* Reduce spacing */
-        justify-items: center;
-    }
-
-    .box1 {
-        width: 45px; /* Smaller skill boxes */
-        height: 45px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 5px; /* Slightly rounded corners */
-    }
-
-    .box1 img {
-        width: 30px; /* Reduce icon size */
-        height: auto;
-    }
-
-    /* Adjustments for combined rows */
-    .combined-row {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 5px;
-        width: 100%;
-    }
-
-    /* Projects Section */
-    .project {
-        width: 100%;
-    }
-
-    /* Contact Section */
-    .contact-box {
-        padding: 20px;
-    }
-}
-
-/* iPhone 13 Specific Adjustments */
-/* iPhone 13 Specific Adjustments */
-@media only screen 
-  and (max-width: 390px) 
-  and (max-height: 844px) {
-    /* Profile Section */
-    #profile {
-        padding: 30px 0;
-        height: 800px !important;
-        padding-bottom: 200px;
-    }
-
-    .sec_pro_container {
-        width: 300px;
-        height: 400px;
-        padding-top: 100px;
-    }
-
-    .sec_txt h1 {
-        font-size: 1.8rem;
-    }
-
-    .menulink li a {
-        font-size: 1rem !important;
-    }
-
-    .menulink {
-        width: 110px !important;
-        margin-top: -10px !important;
-        height: 250px !;
+        gap: 0;
+        overflow: visible;
     }
 
     .logo {
-        text-align: center;
+        z-index: 1002;
     }
 
-    .navicon {
+    .menu-toggle {
+        display: flex;
+        position: relative;
+        z-index: 1002;
+    }
+
+    #desnav>div:last-child {
+        width: 100%;
+        order: 3;
+    }
+
+    .nlinks {
         display: none;
-        width: 30px;
-        height: 30px;
-    }
-
-    .sec_txt_p2 {
-        font-size: 1.1rem;
-    }
-
-    .sec_txt {
-        margin-top: -40px !important;
-    }
-
-    .btn-color2, .btn-color1 {
-        font-size: 50px !important;
-    }
-
-    .btncon {
-        font-size: 50px !important;
-    }
-
-    .title {
-        font-size: 1rem;
-    }
-
-    .sec_txt_p1 {
-        font-size: 10px !important;
-    }
-
-    /* About Me Section */
-    #about {
-        height: 2000px;
-    }
-
-    .about-details-container {
-        font-size: 0.9rem;
-        flex-wrap: wrap !important;
-    }
-
-    .about-pic {
-        width: 180px !important;
-        height: 250px !important;
-    }
-
-    .details-containers {
-        font-size: 20px !important;
-    }
-
-    /* Featured Section */
-    #featured {
-        height: 2000px !important;
-    }
-
-    .box-wrapper {
-        gap: 5px;
-    }
-
-    /* Work Experience */
-    #workexperience {
-        height: 1200px !important;
-    }
-
-    .experience-box {
         width: 100%;
-        padding: 10px;
-    }
-
-    /* Education Section */
-    #education {
-        display: block !important;
-        width: 100% !important;
-        margin: 20px auto !important;
-        padding: 10px !important;
-        text-align: center !important;
-        height: auto !important;
-        box-sizing: border-box !important;
-        max-height: 11000px;
-    }
-
-    #education h2 {
-        font-size: 1.6rem !important;
-        margin-bottom: 15px !important;
-    }
-
-    #education p {
-        font-size: 1rem !important;
-        margin-bottom: 10px !important;
-    }
-
-    .title1 {
-        font-size: 1.1rem !important;
-    }
-
-    /* Skills Section */
-    #skills {
-        height: 1700px !important;
-    }
-
-    .box1 {
-        width: 50px;
-        height: 50px;
-    }
-
-    #subhea {
-        font-size: 1.5rem !important;
-    }
-
-    #hed5 {
-        font-size: 2rem !important;
-    }
-
-    /* Projects Section */
-    #projects {
-        height: 2300px !important;
-    }
-
-    .project {
-        width: 90% !important;
-        height: 300px;
-    }
-
-    .title1 {
-        font-size: 15px !important;
-    }
-/*changed*/
-    .frame {
-        height: 200px;
-        align-items: center;
-        padding-right: 30px;
-    }
-
-    .frame img {
-        width: 300px;
-        height: 100%;
-        object-fit: cover;
-    }
-    .project video{
-        width:300px;
-    }
-    /*changed*/
-
-    .description {
-        font-size: 8px;
-    }
-
-    /* Contact Section */
-    #contact {
-        padding: 20px !important;
-        position: relative !important;
-        top: 50px !important;
-    }
-
-    .contact-box {
-        width: 90% !important;
-        max-width: 280px !important;
-        padding: 15px !important;
-    }
-
-    .contact-box h2 {
-        font-size: 1.2rem !important;
-    }
-
-    .contact-box p {
-        font-size: 0.9rem !important;
-    }
-
-    .contact-box input, .contact-box textarea {
-        width: 100% !important;
-        font-size: 1rem !important;
-        box-sizing: border-box; /* Ensure full width */
-    }
-
-    .contact-box button {
-        font-size: 1rem !important;
-        width: 100% !important; /* Full width button */
-        box-sizing: border-box;
-    }
-
-    .contact-form {
-        position: relative !important;
-        z-index: 1 !important;
-        width: 100% !important;
-        align-items: center !important;
-    }
-
-    .contact-box.contact-form {
-        display: flex;
-        flex-direction: column;
-        
-        padding: 15px;
-        order: 2;
-    }
-
-    .faq-section {
-        order: 1;
-        width: 100%;
-        max-width: 320px;
-        text-align: center;
-    }
-
-    .footer-container {
-        display: flex;
         flex-direction: column;
         align-items: center;
-    }
-    .contact-box ,.contact-info{
-        width: 100%;
-    }
-    .nav-icons {
-        bottom: 5px;
-        padding: 3px 5px;
-        gap: 3px;
-        max-width: 70% !important;
-    }
-   .contact-buttons{
-    width: 260px;
-    align-items: center;
-   }
-    .nav-icons img {
-        width: 18px;
-        height: 18px;
-    }
-}
-/* Adjustments for 468px x 600px screens */
-@media only screen and (max-width: 468px) and (max-height: 600px) {
-    .contact-box {
-        margin-top: 20px;
-        order: 2;
-        width: 90%;
-        text-align: center;
+        gap: 15px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        margin-top: 10px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        animation: slideDown 0.3s ease forwards;
     }
 
-    .faq-section {
-        order: 1;
-        margin-bottom: 20px;
-    }
-
-    .contact-section {
+    .nlinks.active {
         display: flex;
+    }
+
+    .nlinks::-webkit-scrollbar {
+        height: 0;
+        background: transparent;
+    }
+
+    /* Hero Section */
+    .hero-section {
+        padding-top: 120px;
+        height: auto;
+        min-height: auto;
+        overflow: hidden;
+    }
+
+    .profile-group {
         flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-    }
-}
-
-/* Adjustments for Facebook Browser and iPhone XR */
-@media only screen and (max-width: 414px) and (max-height: 896px) {
-    .contact-box {
-        margin-top: 20px;
-        order: 2;
-        width: 90%;
+        gap: 30px;
         text-align: center;
-    }
-
-    .faq-section {
-        order: 1;
-        margin-bottom: 20px;
-    }
-
-    .contact-section {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-    }
-}
-
-/* Ensure compatibility with overlapping queries */
-@media only screen and (max-width: 390px) and (max-height: 844px) {
-    .contact-box {
-        margin-top: 20px ;
-        width: 100% !important;
-        order: 2 !important;
-    }
-    .faq-section {
-        order: 1 !important;
-    }
-}
-@media only screen and (max-width: 460px) and (max-height: 768px) {
-    .contact-box {
-        margin-top: 30px;
-        order: 2;
-        width: 95%;
-        text-align: center;
-    }
-
-    .faq-section {
-        order: 1;
-        margin-bottom: 25px;
-    }
-
-    .contact-section {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-    }
-}
-
-/* Adjustments for 768px screens */
-@media only screen and (max-width: 768px) {
-    .contact-box {
-        margin-top: 40px;
-        order: 2;
-        width: 90%;
-        text-align: center;
-    }
-
-    .faq-section {
-        order: 1;
         margin-bottom: 30px;
     }
 
-    .contact-section {
+    .hero-text {
+        align-items: center;
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-    }
-}
-@media only screen and (max-width:2560px) and (max-height:768px) {
-    #education {
-        max-width: 4000px !important;
-    }
-}
-@media screen and (min-width: 1920px) and (max-width: 2560px) and (max-height: 768px) {
-    #nav3 {
-        bottom: 18px;
-        padding: 9px 18px;
-        gap: 11px;
-    }
-    .nav-icons img {
-        width: 38px;
-        height: 38px;
-    }
-}
-
-@media screen and (max-width: 1440px) {
-    #nav3 {
-        bottom: 15px;
-        padding: 8px 16px;
-        gap: 10px;
-    }
-    .nav-icons img {
-        width: 35px;
-        height: 35px;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    #nav3 {
-        bottom: 12px;
-        padding: 6px 12px;
-        gap: 8px;
-    }
-    .nav-icons img {
-        width: 30px;
-        height: 30px;
-    }
-}
-
-@media only screen and (max-width: 390px) and (max-height: 844px) {
-    #nav3 {
-        bottom: 10px;
-        padding: 5px 10px;
-        gap: 6px;
-    }
-    .nav-icons img {
-        width: 25px;
-        height: 25px;
-    }
-}
-@media only screen and (max-width:412) and (max-height:914) {
-    .navicon{
-        display: none;
-    }
-}
-@media (min-width: 1025px) {
-    .row {
-        flex-wrap: nowrap;
-    }
-    
-    .second-row {
-        justify-content: center;
-    }
-}
-
-/* Tablet - 768px */
-@media (max-width: 768px) {
-    .container2 {
         padding: 0 15px;
-        gap: 30px;
     }
-    
-    .row {
+
+    .hero-text h1 {
+        font-size: 2.2rem;
+        line-height: 1.2;
+    }
+
+    .hero-text .highlight {
+        display: inline-block;
+    }
+
+    .typewrite {
+        display: inline-block;
+        margin-top: 0;
+    }
+
+    .hero-text .subtitle {
+        font-size: 1rem;
+        margin-top: 10px;
+        max-width: 90%;
+    }
+
+    .btncon {
+        justify-content: center;
         flex-wrap: wrap;
-        gap: 20px;
     }
-    
-    .project {
-        width: 340px;
-        height: 330px;
-        margin-bottom: 10px;
-    }
-    
-    .frame {
-        height: 180px;
-    }
-    
-    .project .title1 {
-        font-size: 1.2rem;
-        height: 45px;
-    }
-    
-    .description {
-        font-size: 0.85rem;
-        max-height: 250px;
-    }
-    
-    .second-row {
+
+    #socialcon {
         justify-content: center;
     }
-}
 
-/* Large Mobile - 425px */
-@media (max-width: 425px) {
-    .navicon{
-        display: none;
-     }
-    .container2 {
-        padding: 0 10px;
-        gap: 25px;
-    }
-    
-    .row {
-        flex-direction: column;
-        align-items: center;
-        gap: 25px;
-    }
-    
-    .project {
-        
-        height: 320px;
-        padding: 12px;
-        font-size: 10px;
-    }
-    
-    .frame {
-        height: 170px;
-        border-width: 3px;
-    }
-    
-    .project .title1 {
-        font-size: 1.1rem;
-        height: 40px;
-        margin-top: 6px;
-        margin-bottom: 8px;
-    }
-    
-    .description {
-        padding: 8px;
-        font-size: 0.85rem;
-        max-height: 230px;
-    }
-    
-    .project:hover {
-        transform: scale(1.03);
-    }
-}
-
-/* Medium Mobile - 375px */
-@media (max-width: 375px) {
-    .container2 {
-        padding: 0 8px;
-        gap: 20px;
-    }
-    
-    .row {
-        gap: 20px;
-    }
-    
-    .project {
-        max-width: 330px;
-        height: 310px;
-        padding: 10px;
-    }
-    
-    .frame {
-        height: 160px;
-        width: 270px;
-        border-width: 3px;
-    }
-    
-    .project .title1 {
-        font-size: 1rem;
-        height: 40px;
-        margin-top: 5px;
-        margin-bottom: 6px;
-    }
-    
-    .description {
-        padding: 8px;
-        font-size: 0.8rem;
-        max-height: 220px;
-    }
-}
-
-/* Small Mobile - 320px */
-@media (max-width: 320px) {
-    .container2 {
-        padding: 0 5px;
+    /* Hero Actions Mobile Layout */
+    .hero-actions {
+        justify-content: center;
         gap: 15px;
     }
-    
-    .row {
-        gap: 15px;
-    }
-    
-    .project {
-        max-width: 390px;
-        height: 250px;
-        padding: 8px;
-    }
-    
-    .frame {
-        height: 150px;
-        width: 260px;
-        border-width: 2px;
-    }
-    .project img, .project video{
-        width: 260px;
-    }
-    
-    .project .title1 {
-        font-size: 0.95rem;
-        height: 38px;
-        margin-top: 5px;
-        margin-bottom: 5px;
-    }
-    
-    .description {
-        padding: 6px;
-        font-size: 0.75rem;
-        margin-top: 8px;
-        max-height: 200px;
-    }
-    
-    /* Reduce hover scale for smallest screens to prevent overflow */
-    .project:hover {
-        transform: scale(1.02);
-    }
-}
 
-/* Fix for the second row spacing and alignment across all screen sizes */
-.second-row {
-    margin-top: 0;
-    width: 100%;
-}
+    .social-hero {
+        margin-left: 0;
+        padding-left: 0;
+        border-left: none;
+        /* Remove divider on mobile */
+        margin-top: 10px;
+        /* Stack slightly if needed or just gap */
+        width: 100%;
+        justify-content: center;
+    }
 
-/* Ensure smooth transitions between screen sizes */
-@media (min-width: 426px) and (max-width: 767px) {
-    .project {
-        width: 380px;
+    /* Capsules */
+    .capsule-area {
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        pointer-events: none;
+        z-index: 1;
+        margin-top: 0;
     }
-}
 
-/* Ensure proper spacing when only one project is in second row */
-.second-row:only-child {
-    justify-content: center;
-}
-/* Add these media queries at the end of your existing CSS */
+    .capsule {
+        transform: scale(0.55);
+        pointer-events: auto;
+        opacity: 0.7;
+        white-space: nowrap;
+    }
 
-/* For tablets (768px) */
-@media screen and (max-width: 768px) {
-    .footer-container {
-        grid-template-columns: 1fr; /* Switch to single column */
-        grid-template-rows: auto auto auto; /* Three rows for the three sections */
-        gap: 20px; /* Slightly reduced gap */
+    .huge-bg-text {
+        font-size: 15vw;
+        top: 15%;
+        z-index: 0;
     }
-    
-    /* Contact Info Box */
-    .contact-box.contact-info {
-        grid-column: 1; /* Full width */
-        grid-row: 1; /* First row */
-    }
-    
-    /* FAQ Section */
-    .faq-section {
-        grid-column: 1; /* Full width */
-        grid-row: 2; /* Second row */
-    }
-    
-    /* Contact Form */
-    .contact-box.contact-form {
-        grid-column: 1; /* Full width */
-        grid-row: 3; /* Third row */
-    }
-    
-    /* Adjustments for better mobile experience */
-    #head1, #head2 {
-        font-size: 1.8rem; /* Smaller heading */
-    }
-    
-    .contact-footer {
-        min-height: auto; /* Remove fixed height requirement */
-        padding: 50px 0; /* Add some padding instead */
-    }
-    
-    /* Form improvements for mobile */
-    .contact-form input,
-    .contact-form textarea {
-        width: 100%; /* Full width inputs */
-    }
-}
 
-/* For large phones (425px) */
-@media screen and (max-width: 425px) {
-    .footer-container {
-        width: 95%; /* More width */
-        gap: 15px; /* Even smaller gap */
-        padding: 30px 10px; /* Less padding */
+    /* Profile Frame */
+    .profile-polaroid {
+        width: 200px;
     }
-    
-    /* Further reduce text sizes */
-    #head1, #head2 {
+
+    /* Bento Grid Mobile Padding */
+    .card {
+        padding: 25px;
+        border-radius: 20px;
+    }
+
+    .card h2 {
         font-size: 1.5rem;
     }
-    
-    .faq-question {
-        font-size: 1.3rem;
+
+    /* Section Titles */
+    .case-studies-title {
+        font-size: 2.5rem;
+        margin: 2rem 0;
     }
-    
-    .contact-btn {
-        padding: 12px 20px;
-        font-size: 14px;
+
+    /* Footer */
+    .footer-section {
+        padding: 40px 15px;
     }
-    
-    .send-btn {
-        font-size: 16px;
+
+    .collab-content h2 {
+        font-size: 2.5rem;
     }
-    
-    /* Smaller FAQ controls */
-    .faq-arrow {
-        padding: 8px 12px;
+
+    .big-name {
+        font-size: 18vw;
+        margin-bottom: 0;
     }
-    
-    .faq-title {
-        font-size: 1.3rem;
-    }
-}
-@media screen and (max-width:440px ) and (max-width:956px){
-    .navicon{
+
+    .polaroids {
         display: none;
-     }
-     #about{
-        min-height: 600px;
-        height: auto !important;
-     }
-     #featured{
-        min-height: 600px;
-        height: auto !important;
-     }
-     #workexperience{
-        min-height: 600px;
-        height: auto !important;
-     }
-     #education{
-        min-height: 600px;
-        height: auto !important;
-        max-height: none !important;
-        display: block !important;
-     }
-     #skills{
-        min-height: 600px;
-        height: auto !important;
-     }
-     #projects{
-        min-height: 600px;
-        height: auto !important;
-     }
+    }
+
+    .social-links {
+        margin-bottom: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .social-links a {
+        margin: 0;
+    }
 }
 
+/* -------------------------------------------
+   Mobile Portrait (max-width: 600px)
+   ------------------------------------------- */
+@media (max-width: 600px) {
 
+    /* Box Wrapper (Skills - 1 Col) */
+    .box-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    /* Ecosystem Grid (1 Col) */
+    .ecosystem-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* --- Skill Tree Mobile Optimization (Compact) --- */
+    .tree-trunk {
+        left: 10px;
+        /* Move trunk closer to edge */
+    }
+
+    .branch-wrapper {
+        width: 100%;
+        padding-left: 50px;
+        /* Reduced from 60px */
+        box-sizing: border-box;
+        /* Prevent horizontal scroll */
+    }
+
+    .branch-connector {
+        width: 40px;
+        /* Matches new padding */
+        left: 10px;
+        /* Start from trunk */
+        top: 50%;
+        /* Center vertically relative to wrapper */
+    }
+
+    /* Ensure animation origin is correct for mobile layout (Left Origin for All) */
+    .branch-wrapper.left .branch-connector.draw-on-scroll {
+        transform-origin: left !important;
+    }
+
+    /* Apply Vertical Centering to ALL branches (Left & Right) */
+    .branch-wrapper .branch-connector.draw-on-scroll {
+        transform: translateY(-50%) scaleX(0) !important;
+    }
+
+    .branch-wrapper .branch-connector.draw-on-scroll.active {
+        transform: translateY(-50%) scaleX(1) !important;
+    }
+
+    /* Compact Glass Module */
+    .glass-module {
+        padding: 20px;
+        /* Reduce internal padding */
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .skill-cluster {
+        gap: 10px;
+        /* Tighter icons */
+        justify-content: space-between;
+    }
+
+    .glass-icon {
+        width: 55px;
+        /* Smaller icons */
+        height: 55px;
+    }
+
+    .module-title {
+        font-size: 0.95rem;
+        margin-bottom: 15px;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
