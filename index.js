@@ -1,655 +1,512 @@
-function toggleMenu() {
-    const navicon = document.querySelector('.navicon');
-    const menulink = document.querySelector('.menulink');
-    
-    navicon.classList.toggle('open');
-    menulink.classList.toggle('open'); // Ensure menu opens/closes
-}
-//typinganimation
-var TxtType = function(el, toRotate, period) {
-    this.toRotate = toRotate;
-    this.el = el;
-    this.loopNum = 0;
-    this.period = parseInt(period, 10) || 2000;
-    this.txt = '';
-    this.tick();
-    this.isDeleting = false;
-};
+// Wait for layout to be fully ready
+window.addEventListener('load', () => {
+    const container = document.querySelector('.capsule-area');
+    const capsules = document.querySelectorAll('.capsule');
 
-TxtType.prototype.tick = function() {
-    var i = this.loopNum % this.toRotate.length;
-    var fullTxt = this.toRotate[i];
-
-    if (this.isDeleting) {
-    this.txt = fullTxt.substring(0, this.txt.length - 1);
-    } else {
-    this.txt = fullTxt.substring(0, this.txt.length + 1);
+    if (!container || capsules.length === 0) {
+        console.error("Animation Error: Container or capsules not found.");
+        return;
     }
 
-    this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+    // Physics constants
+    const isMobile = window.innerWidth <= 768;
+    // Zero gravity on mobile for "space floating" effect; normal gravity on desktop
+    const GRAVITY = isMobile ? 0 : 0.1;
+    // Lower friction on mobile to keep them moving longer
+    const FRICTION = isMobile ? 0.99 : 0.95;
+    const BOUNCE = 0.6;   // Bounciness
 
-    var that = this;
-    var delta = 200 - Math.random() * 100;
+    // State for each capsule
+    const bodies = Array.from(capsules).map(element => {
+        // Initialize random positions if not set or parse standard style
+        const rect = element.getBoundingClientRect();
 
-    if (this.isDeleting) { delta /= 2; }
+        // Initial position relative to container
+        // We use offsetLeft/Top which gives position relative to offsetParent (.hero-section likely)
+        // But .capsule-area is absolute.
+        // Let's rely on the visual position.
 
-    if (!this.isDeleting && this.txt === fullTxt) {
-    delta = this.period;
-    this.isDeleting = true;
-    } else if (this.isDeleting && this.txt === '') {
-    this.isDeleting = false;
-    this.loopNum++;
-    delta = 500;
+        let x = element.offsetLeft;
+        let y = element.offsetTop;
+
+        return {
+            element,
+            x: x,
+            y: y,
+            vx: (Math.random() - 0.5) * 5, // Random initial velocity
+            vy: (Math.random() - 0.5) * 5,
+            width: rect.width,
+            height: rect.height,
+            isDragging: false,
+            dragOffsetX: 0,
+            dragOffsetY: 0,
+            lastMouseX: 0,
+            lastMouseY: 0
+        };
+    });
+
+    // Main Animation Loop
+    function update() {
+        // Recalculate dimensions in case of resize
+        const containerRect = container.getBoundingClientRect();
+        const width = containerRect.width;
+        const height = containerRect.height;
+
+        bodies.forEach(body => {
+            if (body.isDragging) {
+                return;
+            }
+
+            // Apply Gravity
+            body.vy += GRAVITY;
+
+            // Apply Friction
+            body.vx *= FRICTION;
+            body.vy *= FRICTION;
+
+            // Update Position
+            body.x += body.vx;
+            body.y += body.vy;
+
+            // Floor Collision
+            if (body.y + body.height > height) {
+                body.y = height - body.height;
+                body.vy *= -BOUNCE;
+
+                // Prevent endless micro-bouncing when settling
+                if (Math.abs(body.vy) < GRAVITY * 2) {
+                    body.vy = 0;
+                }
+            }
+
+            // Ceiling Collision
+            if (body.y < 0) {
+                body.y = 0;
+                body.vy *= -BOUNCE;
+            }
+
+            // Wall Collision
+            if (body.x + body.width > width) {
+                body.x = width - body.width;
+                body.vx *= -BOUNCE;
+            }
+            if (body.x < 0) {
+                body.x = 0;
+                body.vx *= -BOUNCE;
+            }
+
+            // Apply to DOM
+            body.element.style.left = body.x + 'px';
+            body.element.style.top = body.y + 'px';
+        });
+
+        requestAnimationFrame(update);
     }
 
-    setTimeout(function() {
-    that.tick();
-    }, delta);
-};
+    // Drag functionality
+    bodies.forEach(body => {
+        body.element.addEventListener('mousedown', (e) => {
+            body.isDragging = true;
+            body.element.style.cursor = 'grabbing';
+            const rect = body.element.getBoundingClientRect();
 
-window.onload = function() {
+            // Correct offset calculation: Mouse position relative to element
+            body.dragOffsetX = e.clientX - rect.left;
+            body.dragOffsetY = e.clientY - rect.top;
+
+            // Stop movement while dragging
+            body.vx = 0;
+            body.vy = 0;
+
+            body.lastMouseX = e.clientX;
+            body.lastMouseY = e.clientY;
+
+            e.preventDefault(); // Prevent text selection
+        });
+    });
+
+    window.addEventListener('mousemove', (e) => {
+        bodies.forEach(body => {
+            if (!body.isDragging) return;
+
+            // Mouse position relative to container
+            // We need container's position on screen
+            const containerRect = container.getBoundingClientRect();
+
+            // New X/Y relative to container-top-left
+            // = (Mouse Client X) - (Container Client Left) - (Offset inside element)
+            const newX = e.clientX - containerRect.left - body.dragOffsetX;
+            const newY = e.clientY - containerRect.top - body.dragOffsetY;
+
+            body.x = newX;
+            body.y = newY;
+
+            // Apply directly
+            body.element.style.left = body.x + 'px';
+            body.element.style.top = body.y + 'px';
+
+            // Calculate "Throw" velocity
+            body.vx = (e.clientX - body.lastMouseX) * 0.5;
+            body.vy = (e.clientY - body.lastMouseY) * 0.5;
+
+            body.lastMouseX = e.clientX;
+            body.lastMouseY = e.clientY;
+        });
+    });
+
+    window.addEventListener('mouseup', () => {
+        bodies.forEach(body => {
+            if (body.isDragging) {
+                body.isDragging = false;
+                body.element.style.cursor = 'grab';
+            }
+        });
+    });
+
+
+    // Typewriter Effect
+    var TxtType = function (el, toRotate, period) {
+        this.toRotate = toRotate;
+        this.el = el;
+        this.loopNum = 0;
+        this.period = parseInt(period, 10) || 2000;
+        this.txt = '';
+        this.tick();
+        this.isDeleting = false;
+    };
+
+    TxtType.prototype.tick = function () {
+        var i = this.loopNum % this.toRotate.length;
+        var fullTxt = this.toRotate[i];
+
+        if (this.isDeleting) {
+            this.txt = fullTxt.substring(0, this.txt.length - 1);
+        } else {
+            this.txt = fullTxt.substring(0, this.txt.length + 1);
+        }
+
+        this.el.innerHTML = '<span class="wrap">' + this.txt + '</span>';
+
+        var that = this;
+        var delta = 200 - Math.random() * 100;
+
+        if (this.isDeleting) { delta /= 2; }
+
+        if (!this.isDeleting && this.txt === fullTxt) {
+            delta = this.period;
+            this.isDeleting = true;
+
+            // --- Dynamic Subtitle Update ---
+            const subtitleEl = document.querySelector('.subtitle');
+            const roleKey = fullTxt;
+            const roleSubtitles = {
+                "Analyst": "Turning raw data into actionable business insights.",
+                "Scientist": "Building predictive models to solve complex challenges.",
+                "Visualization": "Crafting compelling stories through interactive dashboards.",
+                "Engineer": "Architecting scalable data pipelines and robust infrastructure."
+            };
+
+            if (subtitleEl && roleSubtitles[roleKey]) {
+                subtitleEl.style.opacity = '0';
+                setTimeout(() => {
+                    subtitleEl.textContent = roleSubtitles[roleKey];
+                    subtitleEl.style.opacity = '0.8';
+                }, 300);
+            }
+            // -------------------------------
+
+        } else if (this.isDeleting && this.txt === '') {
+            this.isDeleting = false;
+            this.loopNum++;
+            delta = 500;
+        }
+
+        setTimeout(function () {
+            that.tick();
+        }, delta);
+    };
+
+    // Initialize Typewriter
     var elements = document.getElementsByClassName('typewrite');
-    for (var i=0; i<elements.length; i++) {
+    for (var i = 0; i < elements.length; i++) {
         var toRotate = elements[i].getAttribute('data-type');
         var period = elements[i].getAttribute('data-period');
         if (toRotate) {
-          new TxtType(elements[i], JSON.parse(toRotate), period);
+            new TxtType(elements[i], JSON.parse(toRotate), period);
         }
     }
-    // INJECT CSS
+    // Inject CSS for cursor
     var css = document.createElement("style");
     css.type = "text/css";
     css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
     document.body.appendChild(css);
-};
-// Close the menu when a link is clicked
-document.querySelectorAll('.menulink a').forEach(link => {
-    link.addEventListener('click', () => {
-        document.querySelector('.menulink').classList.remove('open');
-        document.querySelector('.navicon').classList.remove('open');
+
+    // Mobile Menu Toggle
+    const menuToggle = document.getElementById('mobile-menu');
+    const nlinks = document.querySelector('.nlinks');
+
+    if (menuToggle && nlinks) {
+        menuToggle.addEventListener('click', () => {
+            nlinks.classList.toggle('active');
+        });
+
+        // Close menu when a link is clicked
+        const links = nlinks.querySelectorAll('a');
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                nlinks.classList.remove('active');
+            });
+        });
+    }
+
+    // Video Hover Effect
+    // Video Hover Effect
+    const videoCards = document.querySelectorAll('.card');
+    console.log(`Found ${videoCards.length} cards for interaction.`);
+
+    videoCards.forEach((card, index) => {
+        const video = card.querySelector('.hover-video');
+        if (video) {
+            // Enforce properties for autoplay policy
+            video.muted = true;
+            video.playsInline = true;
+            video.loop = true;
+
+            // Preload to ensure readiness
+            video.preload = "auto";
+
+            card.addEventListener('mouseenter', () => {
+                video.currentTime = 0; // Restart on enter
+                const playPromise = video.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => {
+                        console.warn(`Video play failed for card ${index} (${video.src}):`, error);
+                    });
+                }
+            });
+
+            card.addEventListener('mouseleave', () => {
+                video.pause();
+                video.currentTime = 0;
+            });
+        }
     });
-});
+
+    // 3D Tilt Effect
+    const cards = document.querySelectorAll('.card');
+
+    cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            const rotateX = ((y - centerY) / centerY) * -5; // Max -5deg to 5deg
+            const rotateY = ((x - centerX) / centerX) * 5;
+
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+        });
+    });
+
+    // FAQ Logic
+    // FAQ Logic
+    const faqData = [
+        { q: "Q. Are you open to full-time roles?", a: "Yes, I'm actively looking for full-time roles." },
+        { q: "Q. Are you open for new projects?", a: "Yes, I'm available for new projects!" },
+        { q: "Q. Are you open for design collaborations?", a: "I'm always open to collaborate." },
+        { q: "Q. How do you handle tight deadlines?", a: "By prioritizing tasks, clear communication, and focused execution." }
+    ];
+
+    let currentFaq = 0;
+    const questionEl = document.getElementById('faq-question');
+    const answerEl = document.getElementById('faq-answer');
+    const prevBtn = document.getElementById('faq-prev');
+    const nextBtn = document.getElementById('faq-next');
+    let faqInterval;
+
+    function updateFaq() {
+        if (!questionEl || !answerEl) return;
+
+        // 1. Fade OUT
+        questionEl.style.opacity = '0';
+        questionEl.style.transform = 'translateY(10px)';
+        answerEl.style.opacity = '0';
+        answerEl.style.transform = 'translateY(10px)';
+
+        // 2. Wait for fade out, then swap text and Fade IN
+        setTimeout(() => {
+            questionEl.textContent = faqData[currentFaq].q;
+            answerEl.textContent = faqData[currentFaq].a;
+
+            questionEl.style.opacity = '1';
+            questionEl.style.transform = 'translateY(0)';
+            answerEl.style.opacity = '1';
+            answerEl.style.transform = 'translateY(0)';
+        }, 500); // Matches CSS transition duration (0.5s)
+    }
+
+    function startFaqLoop() {
+        if (faqInterval) clearInterval(faqInterval);
+        faqInterval = setInterval(() => {
+            currentFaq = (currentFaq + 1) % faqData.length;
+            updateFaq();
+        }, 5000); // Change every 5 seconds
+    }
+
+    function resetFaqLoop() {
+        if (faqInterval) clearInterval(faqInterval);
+        startFaqLoop();
+    }
+
+    if (prevBtn && nextBtn) {
+        // Init first question
+        updateFaq();
+        startFaqLoop();
+
+        nextBtn.addEventListener('click', () => {
+            currentFaq = (currentFaq + 1) % faqData.length;
+            updateFaq();
+            resetFaqLoop();
+        });
+
+        prevBtn.addEventListener('click', () => {
+            currentFaq = (currentFaq - 1 + faqData.length) % faqData.length;
+            updateFaq();
+            resetFaqLoop();
+        });
+    }
 
 
-document.addEventListener("DOMContentLoaded", () => {
-    const elements = document.querySelectorAll(".hidden");
-    elements.forEach(element => {
-        element.classList.add("slide-in");
-        element.classList.remove("hidden");
-    });
+    // Contact Form Logic
+    const contactForm = document.getElementById("contactForm");
+    if (contactForm) {
+        contactForm.addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent page reload
+
+            // Editable variables for email and SMS
+            const emailAddress = "puttasathvik16@gmail.com"; // Replace with your email address
+            const smsNumber = "+1(475)837 8069"; // Replace with your SMS number (international format)
+
+            // Get form values
+            let name = document.getElementById("name").value.trim();
+            let email = document.getElementById("email").value.trim();
+            let phone = document.getElementById("phone").value.trim();
+            let subject = document.getElementById("subject").value.trim();
+            let message = document.getElementById("message").value.trim();
+
+            // Regular expressions for validation
+            let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            let phonePattern = /^[0-9]{10,15}$/;
+
+            // Validate input fields
+            if (!name || !email || !phone || !subject || !message) {
+                alert("⚠️ Please fill in all fields.");
+                return;
+            }
+
+            // Validate email format
+            if (!emailPattern.test(email)) {
+                alert("⚠️ Please enter a valid email address.");
+                return;
+            }
+
+            // Validate phone number format
+            if (!phonePattern.test(phone)) {
+                alert("⚠️ Please enter a valid phone number (only digits, min 10).");
+                return;
+            }
+
+            // Email Submission via `mailto:`
+            let mailtoLink = `mailto:${emailAddress}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
+                "Name: " + name +
+                "\nEmail: " + email +
+                "\nPhone: " + phone +
+                "\n\nMessage:\n" + message
+            )}`;
+
+            // SMS Submission via `sms:`
+            let smsLink = `sms:${smsNumber}?body=${encodeURIComponent(
+                "Name: " + name +
+                "\nPhone: " + phone +
+                "\n\nMessage:\n" + message
+            )}`;
+
+            // Ask the user how they want to send the form
+            let submissionChoice = confirm("Do you want to submit via Email? Press 'Cancel' to send via SMS.");
+
+            if (submissionChoice) {
+                // Redirect to email client
+                window.location.href = mailtoLink;
+            } else {
+                // Redirect to SMS app
+                window.location.href = smsLink;
+            }
+
+            // Show success message (only appears if no redirection issues)
+            alert("✅ Submission initiated!");
+
+            // Clear the form
+            document.getElementById("contactForm").reset();
+        });
+    }
+
+    // Scroll Animation Observer
+    // Enhanced Scroll Animation Observer
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.15 // Trigger when 15% visible
+    };
 
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add("slide-in");
-                entry.target.classList.remove("hidden");
-                observer.unobserve(entry.target);
+                // 1. Handle Stagger Containers (Parent triggers children)
+                if (entry.target.classList.contains('stagger-container')) {
+                    const children = entry.target.querySelectorAll('.animate-on-scroll');
+                    children.forEach((child, index) => {
+                        // Apply incremental delay if not already set
+                        if (!child.style.transitionDelay) {
+                            child.style.transitionDelay = `${index * 150}ms`;
+                        }
+                        child.classList.add('active');
+                    });
+
+                    // Trigger Wiring Animations (Tree Trunk & Connectors)
+                    const wiring = entry.target.querySelectorAll('.draw-on-scroll');
+                    wiring.forEach(wire => wire.classList.add('active'));
+
+                    entry.target.classList.add('active');
+                }
+                // 2. Handle Individual Elements
+                else if (entry.target.classList.contains('animate-on-scroll')) {
+                    entry.target.classList.add('active');
+                }
+                // 3. Handle Old Legacy 'reveal' Elements (Backwards compatibility)
+                else if (entry.target.classList.contains('reveal')) {
+                    entry.target.classList.add('active');
+                }
+                // 4. Handle Draw-on-Scroll Elements (Skill Tree)
+                else if (entry.target.classList.contains('draw-on-scroll')) {
+                    entry.target.classList.add('active');
+                }
+
+                observer.unobserve(entry.target); // Only animate once
             }
         });
-    }, { threshold: 0.1 });
+    }, observerOptions);
 
-    const sections = document.querySelectorAll("#profile, #about, .sec_pro_container, .sec_txt, .about-section-content, .about-details-container");
-    sections.forEach(section => observer.observe(section));
+    // Observe all relevant elements
+    const scrollElements = document.querySelectorAll('.animate-on-scroll, .stagger-container, .reveal, .draw-on-scroll');
+    scrollElements.forEach(el => observer.observe(el));
+
+    // Start the physics loop
+    requestAnimationFrame(update);
 });
-
-document.addEventListener("DOMContentLoaded", function () {
-    const featuredHeading = document.querySelector(".featured-heading");
-    const boxes = document.querySelectorAll(".animated-box");
-    const texts = document.querySelectorAll(".box-text");
-    const boxContainers = document.querySelectorAll(".box-container");
-
-    function scrollHandler() {
-        // Animate heading
-        if (featuredHeading.getBoundingClientRect().top < window.innerHeight - 100) {
-            featuredHeading.style.opacity = 1;
-            featuredHeading.style.transform = "translateY(0)";
-        }
-
-        // Animate boxes and their respective text
-        boxes.forEach((box, index) => {
-            const rect = box.getBoundingClientRect();
-            if (rect.top < window.innerHeight - 100) {
-                box.style.opacity = 1;
-                box.style.transform = "translateY(0)";
-                box.style.transitionDelay = `${index * 0.2}s`;
-
-                // Animate corresponding text
-                texts[index].style.opacity = 1;
-                texts[index].style.transform = "translateY(0)";
-                texts[index].style.transitionDelay = `${index * 0.3}s`;
-            }
-        });
-    }
-
-    // Add click event to keep the holographic effect active
-    boxContainers.forEach(container => {
-        container.addEventListener("click", function () {
-            // Remove active state from all
-            boxContainers.forEach(c => c.setAttribute("data-active", "false"));
-
-            // Activate clicked one
-            container.setAttribute("data-active", "true");
-        });
-    });
-
-    window.addEventListener("scroll", scrollHandler);
-    scrollHandler(); // Run on load
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-    const experienceHeading = document.querySelector(".experience-heading");
-    const experienceBoxes = document.querySelectorAll(".experience-box");
-
-    function scrollHandler() {
-        // Animate heading
-        if (experienceHeading.getBoundingClientRect().top < window.innerHeight - 100) {
-            experienceHeading.style.opacity = 1;
-            experienceHeading.style.transform = "translateY(0)";
-        }
-
-        // Animate experience boxes
-        experienceBoxes.forEach((box, index) => {
-            const rect = box.getBoundingClientRect();
-            if (rect.top < window.innerHeight - 100) {
-                box.style.opacity = 1;
-                box.style.transform = "translateY(0)";
-                box.style.transitionDelay = `${index * 0.2}s`;
-            }
-        });
-    }
-
-    window.addEventListener("scroll", scrollHandler);
-    scrollHandler(); // Run on load
-});
-document.addEventListener("DOMContentLoaded", function () {
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add("slide-in");
-                entry.target.classList.remove("hidden");
-                observer.unobserve(entry.target); // Ensures it animates only once
-            }
-        });
-    }, { threshold: 0.1 });
-
-    // Apply animation only to Education section
-    const educationSection = document.querySelector("#education");
-    if (educationSection) observer.observe(educationSection);
-});
-
-
-function showCertificate(imagePath) {
-    var modal = document.getElementById("certificateModal");
-    var modalImg = document.getElementById("certificateImage");
-    modal.style.display = "block";
-    modalImg.src = imagePath;
-}
-
-function closeModal() {
-    var modal = document.getElementById("certificateModal");
-    modal.style.display = "none";
-}
-document.addEventListener("DOMContentLoaded", function () {
-    const profilePic = document.querySelector(".profile-pic");
-    const aboutSection = document.querySelector("#about");
-
-    function scrollHandler() {
-        const aboutSectionTop = aboutSection.getBoundingClientRect().top;
-        const windowHeight = window.innerHeight;
-
-        if (aboutSectionTop < windowHeight / 2) {
-            profilePic.classList.add("in-about");
-        } else {
-            profilePic.classList.remove("in-about");
-        }
-    }
-
-    window.addEventListener("scroll", scrollHandler);
-    scrollHandler(); // Run on load
-});
-document.addEventListener("DOMContentLoaded", function () {
-    const sections = document.querySelectorAll("section.hidden");
-
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add("slide-in");
-                entry.target.classList.remove("hidden");
-            }
-        });
-    }, { threshold: 0.2 });
-
-    sections.forEach(section => observer.observe(section));
-});
-document.addEventListener('DOMContentLoaded', () => {
-    const elements = document.querySelectorAll('.box1, .section1 h2');
-
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, {
-        threshold: 0.5
-    });
-
-    elements.forEach(element => {
-        observer.observe(element);
-    });
-});
-//projects
-document.addEventListener("DOMContentLoaded", () => {
-    animateOnScroll(); // Ensure animations run at load
-});
-
-function isElementInViewport(el) {
-    var rect = el.getBoundingClientRect();
-    return (
-        rect.top >= 0 &&
-        rect.left >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-    );
-}
-
-function animateOnScroll() {
-    var elements = document.querySelectorAll('.animate-on-scroll');
-    elements.forEach(function(element) {
-        if (isElementInViewport(element)) {
-            element.classList.add('animated');
-        }
-    });
-}
-
-window.addEventListener('scroll', animateOnScroll);
-window.addEventListener('load', animateOnScroll);
-document.addEventListener('DOMContentLoaded', () => {
-    const toggleButton = document.querySelector('.navbar-toggle');
-    const navbarLinks = document.querySelector('.navbar-links');
-
-    toggleButton.addEventListener('click', () => {
-        navbarLinks.classList.toggle('active');
-    });
-});
-//contactinfo
-document.getElementById("contactForm").addEventListener("submit", function (event) {
-    event.preventDefault(); // Prevent page reload
-
-    // Editable variables for email and SMS
-    const emailAddress = "puttasathvik16@gmail.com"; // Replace with your email address
-    const smsNumber = "+1(475)837 8069"; // Replace with your SMS number (international format)
-
-    // Get form values
-    let name = document.getElementById("name").value.trim();
-    let email = document.getElementById("email").value.trim();
-    let phone = document.getElementById("phone").value.trim();
-    let subject = document.getElementById("subject").value.trim();
-    let message = document.getElementById("message").value.trim();
-
-    // Regular expressions for validation
-    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    let phonePattern = /^[0-9]{10,15}$/;
-
-    // Validate input fields
-    if (!name || !email || !phone || !subject || !message) {
-        alert("⚠️ Please fill in all fields.");
-        return;
-    }
-
-    // Validate email format
-    if (!emailPattern.test(email)) {
-        alert("⚠️ Please enter a valid email address.");
-        return;
-    }
-
-    // Validate phone number format
-    if (!phonePattern.test(phone)) {
-        alert("⚠️ Please enter a valid phone number (only digits, min 10).");
-        return;
-    }
-
-    // Email Submission via `mailto:`
-    let mailtoLink = `mailto:${emailAddress}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
-        "Name: " + name +
-        "\nEmail: " + email +
-        "\nPhone: " + phone +
-        "\n\nMessage:\n" + message
-    )}`;
-
-    // SMS Submission via `sms:`
-    let smsLink = `sms:${smsNumber}?body=${encodeURIComponent(
-        "Name: " + name +
-        "\nPhone: " + phone +
-        "\n\nMessage:\n" + message
-    )}`;
-
-    // Ask the user how they want to send the form
-    let submissionChoice = confirm("Do you want to submit via Email? Press 'Cancel' to send via SMS.");
-
-    if (submissionChoice) {
-        // Redirect to email client
-        window.location.href = mailtoLink;
-    } else {
-        // Redirect to SMS app
-        window.location.href = smsLink;
-    }
-
-    // Show success message (only appears if no redirection issues)
-    alert("✅ Submission initiated!");
-
-    // Clear the form
-    document.getElementById("contactForm").reset();
-});
-//scrolling
-document.addEventListener("DOMContentLoaded", function () {
-    const profileImg = document.getElementById("profile-img");
-    const aboutSection = document.getElementById("about");
-
-    function scrollHandler() {
-        const aboutSectionTop = aboutSection.getBoundingClientRect().top;
-        const windowHeight = window.innerHeight;
-
-        // Check if the about section is in view
-        if (aboutSectionTop < windowHeight / 2) {
-            profileImg.classList.add("scrolled");
-        } else {
-            profileImg.classList.remove("scrolled");
-        }
-    }
-
-    window.addEventListener("scroll", scrollHandler);
-    scrollHandler(); // Run on load in case the page is already scrolled
-});
-//denied for copying elements
-document.addEventListener('dragstart', event => event.preventDefault()); // Disable dragging images and videos
- // Disable dragging images and videos
-document.querySelectorAll(".frame a").forEach(link => {
-    link.addEventListener("click", function (event) {
-        event.stopPropagation(); // Allows the click to work without interfering scripts
-    });
-});
-//box animation in skills
-document.querySelectorAll('.box1').forEach(el => {
-    el.addEventListener('mouseenter', () => console.log('Hovered!'));
-});
-getComputedStyle(document.querySelector('.box1')).transition
-//tra
-async function fixTransitions() {
-    const box1Elements = document.querySelectorAll('.box1');
-    const h3Elements = document.querySelectorAll('.section1 h3');
-  
-    // Fix for .box1 elements
-    for (const el of box1Elements) {
-      await setElementStyles(el, {
-        opacity: '0',
-        transform: 'translateY(20px)',
-        transition: 'opacity 0.5s ease-out, transform 0.5s ease-out',
-      });
-      el.classList.remove('visible');
-    }
-  
-    // Fix for .section1 h3 elements
-    for (const el of h3Elements) {
-      await setElementStyles(el, {
-        opacity: '0',
-        transform: 'translateY(20px)',
-        transition: 'opacity 0.5s ease-out, transform 0.5s ease-out',
-      });
-      el.classList.remove('tte');
-    }
-  
-    // Simulate adding the visible class after a delay (for demonstration)
-    setTimeout(() => {
-      for (const el of box1Elements) {
-        el.classList.add('visible');
-      }
-      for (const el of h3Elements) {
-        el.classList.add('visible');
-      }
-    }, 100);
-  }
-  
-  fixTransitions();
-  //faqs
-  document.addEventListener("DOMContentLoaded", function () {
-    const faqs = [
-        {
-            question: "Q. Are you open to full-time roles?",
-            answer: "Yes, I'm actively looking for full-time roles."
-        },
-        {
-            question: "Q. Are you open for new projects?",
-            answer: "Yes, I'm available for new projects!"
-        },
-        {
-            question: "Q. Are you open for design collaborations?",
-            answer: "I'm always open to collaborate."
-        },
-        {
-            question: "Q. How do you handle tight deadlines?",
-            answer: "By prioritizing tasks, clear communication, and focused execution."
-        }
-    ];
-
-    let currentIndex = 0;
-    let autoSlideInterval;
-    let isTransitioning = false;
-
-    const questionElement = document.getElementById("faq-question");
-
-    // Function to update the FAQ content with smooth transition
-    function updateFAQ(index) {
-        if (isTransitioning) return;
-        isTransitioning = true;
-
-        // Add fade-out class
-        questionElement.style.opacity = '0';
-        questionElement.style.transform = 'translateY(20px)';
-
-        // Wait for fade-out animation
-        setTimeout(() => {
-            questionElement.innerHTML = `
-                <div class="faq-question">${faqs[index].question}</div>
-                <div class="faq-answer">${faqs[index].answer}</div>
-            `;
-            
-            // Add fade-in class
-            questionElement.style.opacity = '1';
-            questionElement.style.transform = 'translateY(0)';
-            
-            // Reset transition flag after animation
-            setTimeout(() => {
-                isTransitioning = false;
-            }, 500);
-        }, 300);
-    }
-
-    // Function to start auto-sliding
-    function startAutoSlide() {
-        stopAutoSlide(); // Clear any existing interval
-        autoSlideInterval = setInterval(() => {
-            if (!isTransitioning) {
-                currentIndex = (currentIndex + 1) % faqs.length;
-                updateFAQ(currentIndex);
-            }
-        }, 5000); // Change every 5 seconds
-    }
-
-    // Function to stop auto-sliding
-    function stopAutoSlide() {
-        if (autoSlideInterval) {
-            clearInterval(autoSlideInterval);
-        }
-    }
-
-    // Navigation button logic
-    document.getElementById("faq-prev").addEventListener("click", () => {
-        if (!isTransitioning) {
-            currentIndex = (currentIndex - 1 + faqs.length) % faqs.length;
-            updateFAQ(currentIndex);
-            stopAutoSlide();
-            startAutoSlide(); // Restart auto-slide after manual interaction
-        }
-    });
-
-    document.getElementById("faq-next").addEventListener("click", () => {
-        if (!isTransitioning) {
-            currentIndex = (currentIndex + 1) % faqs.length;
-            updateFAQ(currentIndex);
-            stopAutoSlide();
-            startAutoSlide(); // Restart auto-slide after manual interaction
-        }
-    });
-
-    // Add CSS for smooth transitions
-    const style = document.createElement('style');
-    style.textContent = `
-        #faq-question {
-            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-            opacity: 1;
-            transform: translateY(0);
-        }
-    `;
-    document.head.appendChild(style);
-
-    // Start auto-sliding when FAQ section is in view
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                startAutoSlide();
-            } else {
-                stopAutoSlide();
-            }
-        });
-    }, { threshold: 0.5 });
-
-    const faqSection = document.querySelector('.faq-section');
-    if (faqSection) {
-        observer.observe(faqSection);
-    }
-
-    // Initialize with the first FAQ
-    updateFAQ(currentIndex);
-});
-//arrows
-document.addEventListener("DOMContentLoaded", function () {
-    const scrollUp = document.getElementById("scroll-up");
-    const scrollDown = document.getElementById("scroll-down");
-    let scrollInterval;
-
-    // Function to start scrolling smoothly
-    function startScrolling(direction) {
-        stopScrolling();
-        scrollInterval = setInterval(() => {
-            window.scrollBy({
-                top: direction * 50,
-                behavior: "auto"
-            });
-        }, 30);
-    }
-
-    // Function to stop scrolling
-    function stopScrolling() {
-        clearInterval(scrollInterval);
-    }
-
-    // Scroll one full page on single click
-    scrollUp.addEventListener("click", () => {
-        window.scrollBy({
-            top: -window.innerHeight,
-            behavior: "smooth"
-        });
-    });
-
-    scrollDown.addEventListener("click", () => {
-        window.scrollBy({
-            top: window.innerHeight,
-            behavior: "smooth"
-        });
-    });
-
-    // Long press for faster scrolling
-    scrollUp.addEventListener("mousedown", () => startScrolling(-4));
-    scrollDown.addEventListener("mousedown", () => startScrolling(4));
-
-    // Stop scrolling on mouse release
-    scrollUp.addEventListener("mouseup", stopScrolling);
-    scrollDown.addEventListener("mouseup", stopScrolling);
-
-    // Stop scrolling if mouse leaves button
-    scrollUp.addEventListener("mouseleave", stopScrolling);
-    scrollDown.addEventListener("mouseleave", stopScrolling);
-
-    // Hide arrows when at top or bottom
-    function toggleArrows() {
-        scrollUp.style.display = window.scrollY === 0 ? "none" : "block";
-        scrollDown.style.display =
-            window.innerHeight + window.scrollY >= document.body.offsetHeight
-                ? "none"
-                : "block";
-    }
-
-    window.addEventListener("scroll", toggleArrows);
-    toggleArrows(); // Initialize visibility
-});
-
-//datanimation
-document.addEventListener("DOMContentLoaded", function () {
-    const elements = document.querySelectorAll(".experience-heading,.contact-box,.faq-section, .tte, .title1, .btn, .btncolor-1, .btncolor-2, .btn2, .box1, .section1 h3,#education, #skills, #contact, #projects, .clg-details, .edu-entry, .icon1, .cont, .grid, .frame, .project, .container2, .row");
-
-    if (!elements.length) return;
-
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add("slide-up-animation");
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.2, rootMargin: "50px" });
-
-    elements.forEach(element => observer.observe(element));
-});
-//navicon
-document.addEventListener("DOMContentLoaded", function () {
-    const nav3 = document.getElementById("nav3");
-    const scrollThreshold = 300; // Configurable scroll threshold
-
-    function handleScroll() {
-        if (window.scrollY > scrollThreshold) {
-            nav3.style.opacity = "1";
-            nav3.style.visibility = "visible";
-            nav3.style.transform = "translateX(-50%) translateY(0)";
-        } else {
-            nav3.style.opacity = "0";
-            nav3.style.visibility = "hidden";
-            nav3.style.transform = "translateX(-50%) translateY(10px)";
-        }
-    }
-
-    function debounce(func, wait) {
-        let timeout;
-        return function () {
-            const context = this, args = arguments;
-            clearTimeout(timeout);
-            timeout = setTimeout(() => func.apply(context, args), wait);
-        };
-    }
-
-    window.addEventListener("scroll", debounce(handleScroll, 100));
-    requestAnimationFrame(handleScroll); // Ensure smooth initial rendering
-});
-//jsboxfeatured
-document.querySelectorAll('.box-container').forEach(box => {
-    box.addEventListener('click', () => {
-        // Toggle active state
-        box.dataset.active = box.dataset.active === "true" ? "false" : "true";
-    });
-});
-
-
-
-
-
-
