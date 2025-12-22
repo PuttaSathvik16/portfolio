@@ -99,6 +99,30 @@
         /* Override fixed min-width */
     }
 
+    .footer-container>div {
+        min-width: 0 !important;
+        width: 100%;
+    }
+
+    /* Contact Form & Button Fixes */
+    .contact-form input,
+    .contact-form textarea {
+        width: 100% !important;
+        box-sizing: border-box;
+        max-width: 100%;
+    }
+
+    .contact-buttons .btn-designer {
+        width: 100%;
+        justify-content: center;
+        padding: 15px 10px !important;
+        font-size: 0.85rem !important;
+        letter-spacing: 1px !important;
+        white-space: normal !important;
+        word-break: break-word;
+        text-align: center;
+    }
+
     /* Reset min-width that causes zoom issues */
     .footer-container>div {
         min-width: 0 !important;
@@ -339,18 +363,19 @@
     }
 
     /* Capsules - Push back or hide if too cluttered */
+    /* Capsules - Visible and Interactive */
     .capsule-area {
-        opacity: 0.3;
-        /* Reduce opacity significantly */
-        z-index: -1;
-        /* Ensure behind everything */
-        pointer-events: none;
-        /* Prevent blocking clicks */
+        opacity: 1;
+        /* Fully visible */
+        z-index: 5;
+        /* Bring forward to allow interaction */
+        pointer-events: auto;
+        /* Enable clicks/hover */
     }
 
     .capsule {
-        transform: scale(0.4);
-        /* Make much smaller */
+        transform: scale(0.65);
+        /* Slightly smaller than desktop but readable */
         white-space: nowrap;
     }
 
