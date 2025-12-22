@@ -7,6 +7,14 @@
    ------------------------------------------- */
 @media (max-width: 1024px) {
 
+    /* Global Mobile Constraint (Zoom Fix) */
+    html,
+    body {
+        overflow-x: hidden;
+        width: 100vw;
+        position: relative;
+    }
+
     /* About Section Layout */
     .about-section-content {
         flex-direction: column;
@@ -56,26 +64,43 @@
         grid-column: span 1;
     }
 
-    /* Footer / Contact Section */
+    /* Collaborate Section Header */
+    .collab-content h2 {
+        font-size: 3rem;
+        /* Scale down from 5rem */
+        line-height: 1.1;
+        word-wrap: break-word;
+        /* Prevent text overflow */
+    }
+
+    .collab-content {
+        max-width: 90%;
+        margin: 0 auto 40px auto;
+    }
+
+    /* Footer / Contact Section - Stack Vertically */
     .footer-section {
         flex-direction: column;
         align-items: center;
         text-align: center;
-        padding: 40px 20px;
-    }
-
-    .collab-content {
-        max-width: 100%;
-        margin-bottom: 40px;
-    }
-
-    .collab-content h2 {
-        font-size: 3rem;
+        padding: 60px 20px;
+        height: auto;
+        min-height: auto;
     }
 
     .footer-container {
         width: 100%;
         grid-template-columns: 1fr;
+        /* Force stack */
+        gap: 30px;
+        min-width: 0;
+        /* Override fixed min-width */
+    }
+
+    /* Reset min-width that causes zoom issues */
+    .footer-container>div {
+        min-width: 0 !important;
+        width: 100%;
     }
 }
 
