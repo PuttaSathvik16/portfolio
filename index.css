@@ -12,7 +12,12 @@ body {
     font-family: 'Inter', sans-serif;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden !important;
+    position: relative;
+    touch-action: manipulation;
+    /* Improves touch response */
     -webkit-text-size-adjust: 100%;
     /* Prevent font zooming on rotation */
     -webkit-font-smoothing: antialiased;
