@@ -1825,14 +1825,11 @@ h3 {
 .footer-section {
     display: flex;
     flex-wrap: wrap;
-    /* Stack on mobile */
     justify-content: space-between;
     align-items: flex-start;
-    padding: 20px 40px 100px 40px;
-    /* More padding at bottom */
+    padding: 6rem 5%;
     width: 100%;
     max-width: 1400px;
-    /* Limit width */
     margin: 0 auto;
     position: relative;
     gap: 40px;
@@ -1898,13 +1895,12 @@ h3 {
 /* Right Content (Bento Grid Container) */
 .footer-container {
     flex: 2;
-    /* Take up more space */
     min-width: 300px;
     display: grid;
     grid-template-columns: 1fr 1.5fr;
-    /* Split Contact+FAQ and Form */
     gap: 24px;
     z-index: 2;
+    width: 100%;
 }
 
 /* Adjust column behavior inside Bento Grid */
