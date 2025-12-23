@@ -112,15 +112,28 @@
         max-width: 100%;
     }
 
-    .contact-buttons .btn-designer {
-        width: 100%;
+    /* Fix buttons in Contact Info and Contact Form */
+    .contact-buttons .btn-designer,
+    .contact-form .btn-designer {
+        width: 100% !important;
+        box-sizing: border-box !important;
+        display: flex !important;
         justify-content: center;
-        padding: 15px 0 !important;
+        align-items: center;
+        padding: 15px 10px !important;
         font-size: 0.9rem !important;
         letter-spacing: 0 !important;
         white-space: nowrap !important;
         text-align: center;
         text-transform: none !important;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Ensure icons inside buttons don't mess up layout */
+    .contact-buttons .btn-designer span,
+    .contact-form .btn-designer span {
+        flex-shrink: 0;
     }
 
     /* Reset min-width that causes zoom issues */
