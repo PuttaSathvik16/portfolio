@@ -136,6 +136,29 @@
         flex-shrink: 0;
     }
 
+    /* Reduce Contact Form Styles for Mobile */
+    .contact-form h2 {
+        font-size: 1.5rem !important;
+        margin-bottom: 1.5rem !important;
+    }
+
+    .contact-form label {
+        font-size: 0.9rem !important;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+        font-size: 0.9rem !important;
+        padding: 10px !important;
+    }
+
+    /* Reduce button font size further as requested */
+    .contact-buttons .btn-designer,
+    .contact-form .btn-designer {
+        font-size: 0.8rem !important;
+        padding: 12px 5px !important;
+    }
+
     /* Reset min-width that causes zoom issues */
     .footer-container>div {
         min-width: 0 !important;
