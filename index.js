@@ -103,40 +103,50 @@ window.addEventListener('load', () => {
         requestAnimationFrame(update);
     }
 
-    // Drag functionality
+    // Drag functionality (Touch + Mouse Support)
     bodies.forEach(body => {
-        body.element.addEventListener('mousedown', (e) => {
+        const startDrag = (e) => {
             body.isDragging = true;
             body.element.style.cursor = 'grabbing';
             const rect = body.element.getBoundingClientRect();
 
-            // Correct offset calculation: Mouse position relative to element
-            body.dragOffsetX = e.clientX - rect.left;
-            body.dragOffsetY = e.clientY - rect.top;
+            // Get client coordinates from touch or mouse event
+            const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+            const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+
+            // Correct offset calculation: Mouse/Touch position relative to element
+            body.dragOffsetX = clientX - rect.left;
+            body.dragOffsetY = clientY - rect.top;
 
             // Stop movement while dragging
             body.vx = 0;
             body.vy = 0;
 
-            body.lastMouseX = e.clientX;
-            body.lastMouseY = e.clientY;
+            body.lastMouseX = clientX;
+            body.lastMouseY = clientY;
 
-            e.preventDefault(); // Prevent text selection
-        });
+            e.preventDefault(); // Prevent text selection and scrolling
+        };
+
+        // Add both touch and mouse listeners
+        body.element.addEventListener('mousedown', startDrag);
+        body.element.addEventListener('touchstart', startDrag, { passive: false });
     });
 
-    window.addEventListener('mousemove', (e) => {
+    const onDrag = (e) => {
         bodies.forEach(body => {
             if (!body.isDragging) return;
 
-            // Mouse position relative to container
-            // We need container's position on screen
+            // Get client coordinates from touch or mouse event
+            const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+            const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+
+            // Mouse/Touch position relative to container
             const containerRect = container.getBoundingClientRect();
 
             // New X/Y relative to container-top-left
-            // = (Mouse Client X) - (Container Client Left) - (Offset inside element)
-            const newX = e.clientX - containerRect.left - body.dragOffsetX;
-            const newY = e.clientY - containerRect.top - body.dragOffsetY;
+            const newX = clientX - containerRect.left - body.dragOffsetX;
+            const newY = clientY - containerRect.top - body.dragOffsetY;
 
             body.x = newX;
             body.y = newY;
@@ -146,22 +156,29 @@ window.addEventListener('load', () => {
             body.element.style.top = body.y + 'px';
 
             // Calculate "Throw" velocity
-            body.vx = (e.clientX - body.lastMouseX) * 0.5;
-            body.vy = (e.clientY - body.lastMouseY) * 0.5;
+            body.vx = (clientX - body.lastMouseX) * 0.5;
+            body.vy = (clientY - body.lastMouseY) * 0.5;
 
-            body.lastMouseX = e.clientX;
-            body.lastMouseY = e.clientY;
+            body.lastMouseX = clientX;
+            body.lastMouseY = clientY;
         });
-    });
+    };
 
-    window.addEventListener('mouseup', () => {
+    const stopDrag = () => {
         bodies.forEach(body => {
             if (body.isDragging) {
                 body.isDragging = false;
                 body.element.style.cursor = 'grab';
             }
         });
-    });
+    };
+
+    // Add both touch and mouse listeners to window
+    window.addEventListener('mousemove', onDrag);
+    window.addEventListener('touchmove', onDrag, { passive: false });
+
+    window.addEventListener('mouseup', stopDrag);
+    window.addEventListener('touchend', stopDrag);
 
 
     // Typewriter Effect
