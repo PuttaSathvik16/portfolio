@@ -148,6 +148,21 @@
     .contact-buttons {
         gap: 10px !important;
     }
+
+    /* Contact Section Heading Overrides */
+    #head1 {
+        font-size: 1.8rem !important;
+        margin-bottom: 1rem !important;
+    }
+
+    #head2 {
+        font-size: 1.3rem !important;
+        margin-bottom: 1.5rem !important;
+    }
+
+    .faq-title {
+        font-size: 1.3rem !important;
+    }
 }
 
 /* -------------------------------------------
@@ -539,6 +554,53 @@
     .module-title {
         font-size: 0.95rem;
         margin-bottom: 15px;
+    }
+}
+
+/* -------------------------------------------
+   Extra Small Screens / iPhone SE (max-width: 480px)
+   ------------------------------------------- */
+@media (max-width: 480px) {
+
+    /* Further reduce padding to prevent horizontal overflow */
+    .footer-section {
+        padding: 30px 10px !important;
+    }
+
+    .contact-box {
+        padding: 16px !important;
+        border-radius: 20px !important;
+    }
+
+    .contact-form {
+        padding: 16px !important;
+    }
+
+    /* Ensure inputs don't overflow */
+    .contact-form input,
+    .contact-form textarea {
+        padding: 10px !important;
+        font-size: 0.9rem !important;
+    }
+
+    /* Reduce button padding */
+    .contact-buttons .btn-designer,
+    .contact-form .btn-designer {
+        padding: 10px 8px !important;
+        font-size: 0.8rem !important;
+    }
+
+    /* Further reduce heading sizes */
+    #head1 {
+        font-size: 1.5rem !important;
+    }
+
+    #head2 {
+        font-size: 1.2rem !important;
+    }
+
+    .faq-title {
+        font-size: 1.2rem !important;
     }
 }
 
