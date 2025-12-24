@@ -353,6 +353,8 @@ h3 {
     pointer-events: auto;
     white-space: nowrap;
     transition: border-color 0.2s;
+    touch-action: none;
+    /* Enable touch dragging */
 }
 
 .capsule:hover {
@@ -1757,9 +1759,19 @@ h3 {
     white-space: nowrap;
 }
 
-/* -------------------------------------------
-   Contact Section (Bento Grid)
+/* Contact Section (Bento Grid)
 ------------------------------------------- */
+
+/* Ensure all contact elements use border-box sizing */
+.footer-section,
+.footer-section *,
+.footer-container,
+.footer-container *,
+.contact-box,
+.contact-box * {
+    box-sizing: border-box !important;
+}
+
 .contact-footer {
     position: relative;
     padding: 6rem 5%;
@@ -1789,6 +1801,23 @@ h3 {
     border-radius: 32px;
     /* Styles inherited from card classes (mint/blue/purple) */
 }
+
+/* Contact Section Heading Styles */
+#head1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+#head2 {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.faq-title {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
 
 /* FAQ Animation Styles */
 .faq-box {
