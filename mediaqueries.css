@@ -85,31 +85,47 @@
         flex-direction: column;
         align-items: center;
         text-align: center;
-        padding: 60px 20px;
+        padding: 40px 15px !important;
         height: auto;
         min-height: auto;
     }
 
     .footer-container {
-        width: 100%;
-        grid-template-columns: 1fr;
+        width: 100% !important;
+        grid-template-columns: 1fr !important;
         /* Force stack */
-        gap: 30px;
-        min-width: 0;
-        /* Override fixed min-width */
+        gap: 20px !important;
+        min-width: 0 !important;
+        margin: 0 !important;
     }
 
     .footer-container>div {
         min-width: 0 !important;
-        width: 100%;
+        width: 100% !important;
+    }
+
+    .contact-box {
+        padding: 24px !important;
+        border-radius: 24px !important;
     }
 
     /* Contact Form & Button Fixes */
+    .contact-form {
+        padding: 24px !important;
+    }
+
+    .contact-form h2 {
+        font-size: 1.8rem !important;
+        margin-bottom: 1rem !important;
+    }
+
     .contact-form input,
     .contact-form textarea {
         width: 100% !important;
         box-sizing: border-box;
         max-width: 100%;
+        padding: 12px !important;
+        border-radius: 12px !important;
     }
 
     /* Fix buttons in Contact Info and Contact Form */
@@ -120,49 +136,17 @@
         display: flex !important;
         justify-content: center;
         align-items: center;
-        padding: 15px 10px !important;
-        font-size: 0.9rem !important;
-        letter-spacing: 0 !important;
-        white-space: nowrap !important;
+        padding: 12px 10px !important;
+        font-size: 0.85rem !important;
+        letter-spacing: 1px !important;
+        white-space: normal !important;
+        /* Allow text wrap for long text */
         text-align: center;
         text-transform: none !important;
-        overflow: hidden;
-        text-overflow: ellipsis;
     }
 
-    /* Ensure icons inside buttons don't mess up layout */
-    .contact-buttons .btn-designer span,
-    .contact-form .btn-designer span {
-        flex-shrink: 0;
-    }
-
-    /* Reduce Contact Form Styles for Mobile */
-    .contact-form h2 {
-        font-size: 1.5rem !important;
-        margin-bottom: 1.5rem !important;
-    }
-
-    .contact-form label {
-        font-size: 0.9rem !important;
-    }
-
-    .contact-form input,
-    .contact-form textarea {
-        font-size: 0.9rem !important;
-        padding: 10px !important;
-    }
-
-    /* Reduce button font size further as requested */
-    .contact-buttons .btn-designer,
-    .contact-form .btn-designer {
-        font-size: 0.8rem !important;
-        padding: 12px 5px !important;
-    }
-
-    /* Reset min-width that causes zoom issues */
-    .footer-container>div {
-        min-width: 0 !important;
-        width: 100%;
+    .contact-buttons {
+        gap: 10px !important;
     }
 }
 
