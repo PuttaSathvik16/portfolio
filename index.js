@@ -651,4 +651,410 @@ window.addEventListener('load', () => {
 
     // Start the physics loop
     requestAnimationFrame(update);
+
+    // ============================================
+    // CUSTOM CURSOR FUNCTIONALITY
+    // ============================================
+    const cursorDot = document.querySelector('.cursor-dot');
+    const cursorOutline = document.querySelector('.cursor-outline');
+
+    if (cursorDot && cursorOutline) {
+        let mouseX = 0, mouseY = 0;
+        let dotX = 0, dotY = 0;
+        let outlineX = 0, outlineY = 0;
+
+        // Track mouse position
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        // Smooth animation loop for cursor
+        function animateCursor() {
+            // Smooth follow for dot (faster)
+            dotX += (mouseX - dotX) * 0.3;
+            dotY += (mouseY - dotY) * 0.3;
+
+            // Smooth follow for outline (slower for trail effect)
+            outlineX += (mouseX - outlineX) * 0.15;
+            outlineY += (mouseY - outlineY) * 0.15;
+
+            cursorDot.style.left = dotX + 'px';
+            cursorDot.style.top = dotY + 'px';
+            cursorOutline.style.left = outlineX + 'px';
+            cursorOutline.style.top = outlineY + 'px';
+
+            requestAnimationFrame(animateCursor);
+        }
+
+        animateCursor();
+
+        // Hover effect on interactive elements
+        const interactiveElements = document.querySelectorAll('a, button, .btn-designer, .card, .box-container, .glass-icon, input, textarea, .qb-item, .capsule, img[onclick], .hero-icon');
+
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                document.body.classList.add('cursor-hover');
+            });
+
+            el.addEventListener('mouseleave', () => {
+                document.body.classList.remove('cursor-hover');
+            });
+        });
+
+        // Click effect
+        window.addEventListener('mousedown', () => {
+            document.body.classList.add('cursor-active');
+        });
+
+        window.addEventListener('mouseup', () => {
+            document.body.classList.remove('cursor-active');
+        });
+    }
+
+    // ============================================
+    // GOOGLE ANALYTICS EVENT TRACKING
+    // ============================================
+
+    // Helper function to safely send GA events
+    function trackEvent(eventName, eventParams = {}) {
+        if (typeof gtag !== 'undefined') {
+            gtag('event', eventName, eventParams);
+            console.log('GA Event:', eventName, eventParams);
+        }
+    }
+
+    // Track Resume Download
+    const resumeBtn = document.querySelector('.btn-designer[onclick*="Sathvik_Putta.pdf"]');
+    if (resumeBtn) {
+        resumeBtn.addEventListener('click', () => {
+            trackEvent('resume_download', {
+                'event_category': 'engagement',
+                'event_label': 'Resume PDF'
+            });
+        });
+    }
+
+    // Track Contact Button Clicks
+    const contactBtns = document.querySelectorAll('.btn-designer[onclick*="contact"]');
+    contactBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            trackEvent('contact_click', {
+                'event_category': 'engagement',
+                'event_label': 'Contact Button'
+            });
+        });
+    });
+
+    // Track Social Media Clicks
+    const socialLinks = {
+        'linkedin': document.querySelector('img[onclick*="linkedin"]'),
+        'github': document.querySelector('img[onclick*="github"]')
+    };
+
+    Object.entries(socialLinks).forEach(([platform, element]) => {
+        if (element) {
+            element.addEventListener('click', () => {
+                trackEvent('social_click', {
+                    'event_category': 'social_media',
+                    'event_label': platform,
+                    'platform': platform
+                });
+            });
+        }
+    });
+
+    // Track Navigation Clicks
+    const navLinks = document.querySelectorAll('.nlinks a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            const section = link.getAttribute('href').replace('#', '');
+            trackEvent('navigation', {
+                'event_category': 'navigation',
+                'event_label': section,
+                'section': section
+            });
+        });
+    });
+
+    // Track Project Card Interactions
+    const projectCards = document.querySelectorAll('.card');
+    projectCards.forEach((card, index) => {
+        card.addEventListener('mouseenter', () => {
+            const projectTitle = card.querySelector('h2')?.textContent || `Project ${index + 1}`;
+            trackEvent('project_view', {
+                'event_category': 'engagement',
+                'event_label': projectTitle,
+                'project_index': index
+            });
+        });
+
+        // Track project link clicks
+        const projectLink = card.querySelector('a.btn-designer');
+        if (projectLink) {
+            projectLink.addEventListener('click', () => {
+                const projectTitle = card.querySelector('h2')?.textContent || `Project ${index + 1}`;
+                trackEvent('project_click', {
+                    'event_category': 'engagement',
+                    'event_label': projectTitle,
+                    'project_index': index
+                });
+            });
+        }
+    });
+
+    // Track Featured Platform Clicks
+    const featuredBoxes = document.querySelectorAll('.box-container a');
+    featuredBoxes.forEach(box => {
+        box.addEventListener('click', () => {
+            const platform = box.querySelector('.box-text')?.textContent || 'Unknown';
+            trackEvent('featured_platform_click', {
+                'event_category': 'social_media',
+                'event_label': platform,
+                'platform': platform
+            });
+        });
+    });
+
+    // Track Contact Form Submission
+    if (contactForm) {
+        contactForm.addEventListener('submit', () => {
+            trackEvent('form_submission', {
+                'event_category': 'engagement',
+                'event_label': 'Contact Form',
+                'form_type': 'contact'
+            });
+        });
+    }
+
+    // Track Email/Phone Button Clicks
+    const emailBtn = document.querySelector('button[onclick*="mailto"]');
+    const phoneBtn = document.querySelector('button[onclick*="tel"]');
+
+    if (emailBtn) {
+        emailBtn.addEventListener('click', () => {
+            trackEvent('contact_method', {
+                'event_category': 'engagement',
+                'event_label': 'Email',
+                'method': 'email'
+            });
+        });
+    }
+
+    if (phoneBtn) {
+        phoneBtn.addEventListener('click', () => {
+            trackEvent('contact_method', {
+                'event_category': 'engagement',
+                'event_label': 'Phone',
+                'method': 'phone'
+            });
+        });
+    }
+
+    // Track Scroll Depth
+    let scrollDepth = 0;
+    const scrollMilestones = [25, 50, 75, 100];
+
+    window.addEventListener('scroll', () => {
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight - windowHeight;
+        const scrolled = (window.scrollY / documentHeight) * 100;
+
+        scrollMilestones.forEach(milestone => {
+            if (scrolled >= milestone && scrollDepth < milestone) {
+                scrollDepth = milestone;
+                trackEvent('scroll_depth', {
+                    'event_category': 'engagement',
+                    'event_label': `${milestone}%`,
+                    'percentage': milestone
+                });
+            }
+        });
+    });
+
+    // Track Time on Page
+    let timeOnPage = 0;
+    const timeInterval = setInterval(() => {
+        timeOnPage += 30;
+        if (timeOnPage % 60 === 0) { // Every 60 seconds
+            trackEvent('time_on_page', {
+                'event_category': 'engagement',
+                'event_label': `${timeOnPage} seconds`,
+                'seconds': timeOnPage
+            });
+        }
+    }, 30000); // Check every 30 seconds
+
+    // Track Page Visibility
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            trackEvent('page_hidden', {
+                'event_category': 'engagement',
+                'event_label': 'User left page'
+            });
+        } else {
+            trackEvent('page_visible', {
+                'event_category': 'engagement',
+                'event_label': 'User returned to page'
+            });
+        }
+    });
+
+    console.log('Google Analytics tracking initialized ✓');
+
+    // ============================================
+    // SOCIAL SHARE FUNCTIONALITY
+    // ============================================
+
+    const shareToggle = document.getElementById('shareToggle');
+    const sharePanel = document.querySelector('.share-panel');
+    const shareButtons = document.querySelectorAll('.share-btn');
+
+    // Toggle share panel
+    if (shareToggle) {
+        shareToggle.addEventListener('click', () => {
+            sharePanel.classList.toggle('active');
+        });
+
+        // Close when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!sharePanel.contains(e.target)) {
+                sharePanel.classList.remove('active');
+            }
+        });
+    }
+
+    // Share functionality
+    shareButtons.forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+            e.stopPropagation();
+            const platform = btn.dataset.share;
+            // Use actual portfolio URL
+            const url = 'https://sathvikputta.site';
+            const title = 'Check out Sathvik Putta\'s Portfolio - Data Engineer';
+            const description = 'Experienced Data Engineer specializing in scalable data pipelines, cloud solutions, and analytics. View my projects and experience!';
+
+            // Handle copy separately
+            if (platform === 'copy') {
+                try {
+                    await navigator.clipboard.writeText(url);
+                    // Show success feedback
+                    const originalHTML = btn.innerHTML;
+                    btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+                    btn.style.background = 'rgba(147, 51, 234, 0.3)';
+
+                    setTimeout(() => {
+                        btn.innerHTML = originalHTML;
+                        btn.style.background = '';
+                    }, 2000);
+
+                    // Track copy event
+                    if (typeof trackEvent !== 'undefined') {
+                        trackEvent('share', {
+                            'event_category': 'social_share',
+                            'event_label': 'copy_link',
+                            'platform': 'copy'
+                        });
+                    }
+
+                    console.log('✓ Link copied to clipboard!');
+                } catch (err) {
+                    console.error('Failed to copy:', err);
+                    // Fallback for older browsers
+                    const textArea = document.createElement('textarea');
+                    textArea.value = url;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    try {
+                        document.execCommand('copy');
+                        console.log('✓ Link copied (fallback method)');
+                    } catch (err2) {
+                        alert('Failed to copy link. Please copy manually: ' + url);
+                    }
+                    document.body.removeChild(textArea);
+                }
+                return;
+            }
+
+            // Try Web Share API first (mobile devices)
+            if (navigator.share && platform !== 'email') {
+                try {
+                    await navigator.share({
+                        title: title,
+                        text: description,
+                        url: url
+                    });
+
+                    // Track share event
+                    if (typeof trackEvent !== 'undefined') {
+                        trackEvent('share', {
+                            'event_category': 'social_share',
+                            'event_label': platform + '_native',
+                            'platform': platform
+                        });
+                    }
+
+                    console.log(`✓ Shared via native ${platform}`);
+                    return;
+                } catch (err) {
+                    if (err.name !== 'AbortError') {
+                        console.log('Web Share API failed, using fallback');
+                    }
+                }
+            }
+
+            // Fallback to URL-based sharing
+            let shareUrl = '';
+
+            switch (platform) {
+                case 'twitter':
+                    shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`;
+                    break;
+                case 'linkedin':
+                    shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+                    break;
+                case 'facebook':
+                    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+                    break;
+                case 'whatsapp':
+                    shareUrl = `https://wa.me/?text=${encodeURIComponent(title + ' - ' + url)}`;
+                    break;
+                case 'email':
+                    shareUrl = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(description + '\n\n' + url)}`;
+                    break;
+            }
+
+            if (shareUrl) {
+                // Open in new window/tab
+                const width = 600;
+                const height = 500;
+                const left = (window.innerWidth - width) / 2;
+                const top = (window.innerHeight - height) / 2;
+
+                const popup = window.open(
+                    shareUrl,
+                    'share',
+                    `width=${width},height=${height},left=${left},top=${top},toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes`
+                );
+
+                if (!popup) {
+                    // Popup blocked, try opening in same tab
+                    window.location.href = shareUrl;
+                }
+
+                // Track share event
+                if (typeof trackEvent !== 'undefined') {
+                    trackEvent('share', {
+                        'event_category': 'social_share',
+                        'event_label': platform,
+                        'platform': platform
+                    });
+                }
+
+                console.log(`✓ Opened ${platform} share dialog`);
+            }
+        });
+    });
+
+    console.log('✓ Social share buttons initialized');
 });
