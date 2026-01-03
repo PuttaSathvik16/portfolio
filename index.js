@@ -930,7 +930,7 @@ window.addEventListener('load', () => {
             e.stopPropagation();
             const platform = btn.dataset.share;
             // Use actual portfolio URL
-            const url = 'https://sathvikputta.site';
+            const url = 'https://www.sathvikputta.site/';
             const title = 'Check out Sathvik Putta\'s Portfolio - Data Engineer';
             const description = 'Experienced Data Engineer specializing in scalable data pipelines, cloud solutions, and analytics. View my projects and experience!';
 
