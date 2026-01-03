@@ -2,7 +2,7 @@
 
 A modern, interactive portfolio website showcasing my work as a **Data Engineer**. Built with cutting-edge web technologies and featuring elegant animations, glassmorphism design, and seamless user experience.
 
-🌐 **Visit:** [sathvikputta.site](https://sathvikputta.site)
+🌐 **Visit:** [sathvikputta.site](https://www.sathvikputta.site/)
 
 ---
 
