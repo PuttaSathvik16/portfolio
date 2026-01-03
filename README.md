@@ -185,9 +185,9 @@ A modern, interactive portfolio website showcasing my work as a **Data Engineer*
 **Sathvik Putta**  
 Data Engineer
 
-- 🌐 Website: [sathvikputta.site](https://sathvikputta.site)
-- 💼 LinkedIn: [linkedin.com/in/sathvik-putta](https://linkedin.com/in/sathvik-putta)
-- 💻 GitHub: [github.com/sathvikputta](https://github.com/sathvikputta)
+- 🌐 Website: [sathvikputta.site](https://www.sathvikputta.site/)
+- 💼 LinkedIn: [linkedin.com/in/sathvik-putta](https://www.linkedin.com/in/sathvik-putta-7612611a4/)
+- 💻 GitHub: [github.com/sathvikputta](https://github.com/PuttaSathvik16)
 - 📧 Email: puttasathvik16@gmail.com
 - 📱 Phone: +1 (475) 837-8069
 
