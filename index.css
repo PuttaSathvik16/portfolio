@@ -1324,9 +1324,19 @@ h3 {
     text-align: center;
     color: #222;
     line-height: 0.8;
-    margin-bottom: -2vw;
+    margin-top: -15vw;
+    margin-bottom: -15vw;
     pointer-events: none;
     z-index: 0;
+}
+
+.big-name img {
+    width: 100%;
+    max-width: 1200px;
+    height: auto;
+    opacity: 0.08;
+    filter: grayscale(100%);
+    pointer-events: none;
 }
 
 /* Button Container */
@@ -2582,4 +2592,363 @@ h3 {
 #quick-ball-container.dragging #quick-ball-trigger {
     transform: scale(0.95);
     background: rgba(255, 255, 255, 0.2);
+}
+
+/* ============================================
+   CUSTOM CURSOR WITH TRAIL EFFECT
+   ============================================ */
+
+/* Hide default cursor */
+* {
+    cursor: none !important;
+}
+
+/* Main cursor - Premium Designer Arrow */
+.cursor-dot {
+    width: 24px;
+    height: 24px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Sleek Arrow Shape with Gradient */
+.cursor-dot::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 24px solid transparent;
+    background: linear-gradient(135deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%);
+    -webkit-mask: linear-gradient(to bottom,
+            transparent 0%,
+            black 0%,
+            black 100%);
+    mask: linear-gradient(to bottom,
+            transparent 0%,
+            black 0%,
+            black 100%);
+    filter: drop-shadow(0 2px 8px rgba(255, 60, 172, 0.4)) drop-shadow(0 0 12px rgba(120, 75, 160, 0.3));
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Clean Arrow using clip-path */
+.cursor-dot::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 18px;
+    height: 24px;
+    background: linear-gradient(135deg,
+            rgba(255, 60, 172, 0.9) 0%,
+            rgba(120, 75, 160, 0.8) 50%,
+            rgba(43, 134, 197, 0.7) 100%);
+    clip-path: polygon(50% 0%, 0% 100%, 50% 85%, 100% 100%);
+    filter: drop-shadow(0 0 8px rgba(255, 60, 172, 0.5));
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Cursor outline/trail */
+.cursor-outline {
+    width: 50px;
+    height: 50px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease;
+    animation: cursorPulse 2s ease-in-out infinite;
+    box-shadow: 0 0 20px rgba(255, 60, 172, 0.3),
+        inset 0 0 20px rgba(255, 60, 172, 0.1);
+}
+
+/* Pulse animation for outline */
+@keyframes cursorPulse {
+
+    0%,
+    100% {
+        opacity: 0.6;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    50% {
+        opacity: 0.3;
+        transform: translate(-50%, -50%) scale(1.15);
+    }
+}
+
+/* Hover state - Arrow grows and glows */
+body.cursor-hover .cursor-dot {
+    transform: translate(-50%, -50%) rotate(-45deg) scale(1.4);
+}
+
+body.cursor-hover .cursor-dot::after {
+    background: linear-gradient(135deg,
+            rgba(0, 240, 255, 1) 0%,
+            rgba(112, 0, 255, 0.9) 50%,
+            rgba(255, 60, 172, 0.8) 100%);
+    filter: drop-shadow(0 0 15px rgba(0, 240, 255, 0.8)) drop-shadow(0 0 25px rgba(112, 0, 255, 0.6));
+    animation: arrowGlow 1.2s ease-in-out infinite;
+}
+
+body.cursor-hover .cursor-outline {
+    width: 80px;
+    height: 80px;
+    border-color: rgba(0, 240, 255, 0.4);
+    border-width: 2px;
+    box-shadow: 0 0 40px rgba(0, 240, 255, 0.4),
+        inset 0 0 40px rgba(0, 240, 255, 0.1);
+}
+
+/* Arrow glow animation */
+@keyframes arrowGlow {
+
+    0%,
+    100% {
+        filter: drop-shadow(0 0 15px rgba(0, 240, 255, 0.8)) drop-shadow(0 0 25px rgba(112, 0, 255, 0.6));
+    }
+
+    50% {
+        filter: drop-shadow(0 0 20px rgba(0, 240, 255, 1)) drop-shadow(0 0 35px rgba(112, 0, 255, 0.8));
+    }
+}
+
+/* Active/Click state - Arrow shrinks with purple glow */
+body.cursor-active .cursor-dot {
+    transform: translate(-50%, -50%) rotate(-45deg) scale(0.9);
+}
+
+body.cursor-active .cursor-dot::after {
+    background: linear-gradient(135deg,
+            rgba(112, 0, 255, 1) 0%,
+            rgba(255, 60, 172, 1) 100%);
+    filter: drop-shadow(0 0 20px rgba(112, 0, 255, 1)) drop-shadow(0 0 30px rgba(255, 60, 172, 0.8));
+}
+
+body.cursor-active .cursor-outline {
+    width: 35px;
+    height: 35px;
+    border-color: rgba(112, 0, 255, 0.8);
+    box-shadow: 0 0 30px rgba(112, 0, 255, 0.6);
+}
+
+/* Hide custom cursor on mobile/touch devices */
+@media (hover: none) and (pointer: coarse) {
+
+    .cursor-dot,
+    .cursor-outline {
+        display: none;
+    }
+
+    * {
+        cursor: auto !important;
+    }
+}
+
+/* ============================================
+   SOCIAL SHARE PANEL
+   ============================================ */
+
+.share-panel {
+    position: fixed;
+    left: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 9998;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.share-toggle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(255, 60, 172, 0.1) 0%, rgba(120, 75, 160, 0.1) 100%);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.share-toggle svg {
+    color: #fff;
+    transition: transform 0.3s ease;
+}
+
+.share-toggle:hover {
+    background: linear-gradient(135deg, rgba(255, 60, 172, 0.2) 0%, rgba(120, 75, 160, 0.2) 100%);
+    border-color: rgba(255, 60, 172, 0.6);
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(255, 60, 172, 0.3);
+}
+
+.share-toggle:hover svg {
+    transform: rotate(90deg);
+}
+
+.share-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    opacity: 0;
+    transform: translateX(-20px);
+    pointer-events: none;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.share-panel.active .share-buttons {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: all;
+}
+
+.share-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.share-btn svg {
+    transition: transform 0.3s ease;
+}
+
+.share-btn:hover {
+    transform: translateX(5px) scale(1.1);
+}
+
+.share-btn:hover svg {
+    transform: scale(1.2);
+}
+
+/* Platform-specific colors */
+.share-btn.twitter {
+    color: #1DA1F2;
+}
+
+.share-btn.twitter:hover {
+    background: rgba(29, 161, 242, 0.2);
+    border-color: #1DA1F2;
+    box-shadow: 0 6px 20px rgba(29, 161, 242, 0.4);
+}
+
+.share-btn.linkedin {
+    color: #0077B5;
+}
+
+.share-btn.linkedin:hover {
+    background: rgba(0, 119, 181, 0.2);
+    border-color: #0077B5;
+    box-shadow: 0 6px 20px rgba(0, 119, 181, 0.4);
+}
+
+.share-btn.facebook {
+    color: #1877F2;
+}
+
+.share-btn.facebook:hover {
+    background: rgba(24, 119, 242, 0.2);
+    border-color: #1877F2;
+    box-shadow: 0 6px 20px rgba(24, 119, 242, 0.4);
+}
+
+.share-btn.whatsapp {
+    color: #25D366;
+}
+
+.share-btn.whatsapp:hover {
+    background: rgba(37, 211, 102, 0.2);
+    border-color: #25D366;
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+}
+
+.share-btn.email {
+    color: #EA4335;
+}
+
+.share-btn.email:hover {
+    background: rgba(234, 67, 53, 0.2);
+    border-color: #EA4335;
+    box-shadow: 0 6px 20px rgba(234, 67, 53, 0.4);
+}
+
+.share-btn.copy {
+    color: #9333EA;
+}
+
+.share-btn.copy:hover {
+    background: rgba(147, 51, 234, 0.2);
+    border-color: #9333EA;
+    box-shadow: 0 6px 20px rgba(147, 51, 234, 0.4);
+}
+
+/* Stagger animation for buttons */
+.share-panel.active .share-btn:nth-child(1) {
+    transition-delay: 0.05s;
+}
+
+.share-panel.active .share-btn:nth-child(2) {
+    transition-delay: 0.1s;
+}
+
+.share-panel.active .share-btn:nth-child(3) {
+    transition-delay: 0.15s;
+}
+
+.share-panel.active .share-btn:nth-child(4) {
+    transition-delay: 0.2s;
+}
+
+.share-panel.active .share-btn:nth-child(5) {
+    transition-delay: 0.25s;
+}
+
+.share-panel.active .share-btn:nth-child(6) {
+    transition-delay: 0.3s;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .share-panel {
+        left: 15px;
+    }
+
+    .share-toggle {
+        width: 45px;
+        height: 45px;
+    }
+
+    .share-btn {
+        width: 40px;
+        height: 40px;
+    }
 }
