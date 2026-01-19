@@ -653,66 +653,6 @@ window.addEventListener('load', () => {
     requestAnimationFrame(update);
 
     // ============================================
-    // CUSTOM CURSOR FUNCTIONALITY
-    // ============================================
-    const cursorDot = document.querySelector('.cursor-dot');
-    const cursorOutline = document.querySelector('.cursor-outline');
-
-    if (cursorDot && cursorOutline) {
-        let mouseX = 0, mouseY = 0;
-        let dotX = 0, dotY = 0;
-        let outlineX = 0, outlineY = 0;
-
-        // Track mouse position
-        window.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
-
-        // Smooth animation loop for cursor
-        function animateCursor() {
-            // Smooth follow for dot (faster)
-            dotX += (mouseX - dotX) * 0.3;
-            dotY += (mouseY - dotY) * 0.3;
-
-            // Smooth follow for outline (slower for trail effect)
-            outlineX += (mouseX - outlineX) * 0.15;
-            outlineY += (mouseY - outlineY) * 0.15;
-
-            cursorDot.style.left = dotX + 'px';
-            cursorDot.style.top = dotY + 'px';
-            cursorOutline.style.left = outlineX + 'px';
-            cursorOutline.style.top = outlineY + 'px';
-
-            requestAnimationFrame(animateCursor);
-        }
-
-        animateCursor();
-
-        // Hover effect on interactive elements
-        const interactiveElements = document.querySelectorAll('a, button, .btn-designer, .card, .box-container, .glass-icon, input, textarea, .qb-item, .capsule, img[onclick], .hero-icon');
-
-        interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                document.body.classList.add('cursor-hover');
-            });
-
-            el.addEventListener('mouseleave', () => {
-                document.body.classList.remove('cursor-hover');
-            });
-        });
-
-        // Click effect
-        window.addEventListener('mousedown', () => {
-            document.body.classList.add('cursor-active');
-        });
-
-        window.addEventListener('mouseup', () => {
-            document.body.classList.remove('cursor-active');
-        });
-    }
-
-    // ============================================
     // GOOGLE ANALYTICS EVENT TRACKING
     // ============================================
 
