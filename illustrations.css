@@ -1,0 +1,129 @@
+/* ============================================
+   APPLE-STYLE ILLUSTRATIONS
+   ============================================ */
+
+/* Section Illustration Container */
+.section-illustration {
+    position: absolute;
+    top: 50%;
+    right: 5%;
+    transform: translateY(-50%);
+    width: 300px;
+    height: 300px;
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.section-illustration svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Gradient Definitions */
+.gradient-purple-pink stop:first-child {
+    stop-color: #FF3CAC;
+}
+
+.gradient-purple-pink stop:last-child {
+    stop-color: #784BA0;
+}
+
+/* Floating Animation */
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 0.15;
+    }
+
+    50% {
+        opacity: 0.25;
+    }
+}
+
+.illustration-animate {
+    animation: float 6s ease-in-out infinite;
+}
+
+.illustration-rotate {
+    animation: rotate 20s linear infinite;
+}
+
+.illustration-pulse {
+    animation: pulse 4s ease-in-out infinite;
+}
+
+/* About Me Illustration - Person Icon */
+.about-illustration circle {
+    animation: pulse 3s ease-in-out infinite;
+}
+
+/* Experience Illustration - Briefcase/Steps */
+.experience-illustration path {
+    animation: float 5s ease-in-out infinite;
+}
+
+/* Education Illustration - Graduation Cap */
+.education-illustration {
+    animation: float 7s ease-in-out infinite;
+}
+
+/* Skills Illustration - Gears/Code */
+.skills-illustration circle {
+    animation: rotate 15s linear infinite;
+    transform-origin: center;
+}
+
+/* Projects Illustration - Rocket */
+.projects-illustration {
+    animation: float 4s ease-in-out infinite;
+}
+
+/* Contact Illustration - Message */
+.contact-illustration path {
+    animation: pulse 3s ease-in-out infinite;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 1024px) {
+    .section-illustration {
+        width: 200px;
+        height: 200px;
+        opacity: 0.08;
+    }
+}
+
+@media (max-width: 768px) {
+    .section-illustration {
+        display: none;
+    }
+}
+
+/* Ensure illustrations don't interfere with content */
+.container {
+    position: relative;
+    z-index: 1;
+}

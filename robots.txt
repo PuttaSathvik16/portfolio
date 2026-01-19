@@ -1,0 +1,11 @@
+# robots.txt for https://www.sathvikputta.site/
+
+User-agent: *
+Allow: /
+
+# Disallow specific files/folders if needed
+Disallow: /node_modules/
+Disallow: /.git/
+
+# Sitemap location
+Sitemap: https://www.sathvikputta.site/sitemap.xml
